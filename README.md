@@ -1,8 +1,10 @@
-Projekt serwisu tworzegry.pl
+ÔªøProjekt serwisu tworzegry.pl
 ============================
 
 Diagramy znajduja sie w folderze doc/
 
 Autorzy
 -------
--	£ukasz LewczyÒski
+-	Piotr Gnys
+-	Dorota Sajdak
+-	≈Åukasz Lewczy≈Ñski
