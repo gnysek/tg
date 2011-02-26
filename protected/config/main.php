@@ -20,12 +20,13 @@ return array(
 
 	'modules'=>array(
 		// uncomment the following to enable the Gii tool
-		/*
 		'gii'=>array(
 			'class'=>'system.gii.GiiModule',
-			'password'=>'Enter Your Password Here',
+			'password'=>'supertajne',
 		),
-		*/
+		'admin'=>array(
+				
+		),
 	),
 
 	// application components
@@ -46,7 +47,14 @@ return array(
 		),
 		*/
 		'db'=>array(
-			'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/testdrive.db',
+			'connectionString' => 'mysql:host=localhost;dbname=tg',
+			'class'=>'system.db.CDbConnection',
+//			'schemaCachingDuration' => 3600,
+			'emulatePrepare' => true,
+			'username' => 'root',
+			'password' => '',
+			'charset' => 'utf8',
+//			'tablePrefix' => 'tbl_',
 		),
 		// uncomment the following to use a MySQL database
 		/*
