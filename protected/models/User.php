@@ -22,7 +22,7 @@
  * @property integer $time
  * @property integer $active
  * @property integer $ban
- * @property integer $admin
+ * @property integer $admin x
  *
  * The followings are the available model relations:
  * @property Comment[] $comments
@@ -71,7 +71,8 @@ class User extends CActiveRecord
 			array('bday', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('user_id, name, password, autokey, email, regdate, sex, from, bday, real_name, social_status, avatar, posts, games, last_time, time, active, ban, admin', 'safe', 'on'=>'search'),
+			// array('user_id, name, password, autokey, email, regdate, sex, from, bday, real_name, social_status, avatar, posts, games, last_time, time, active, ban, admin', 'safe', 'on'=>'search'),
+			array('user_id, name, email, regdate, sex, from, bday, real_name, social_status, avatar, posts, games, last_time, time, ban, admin', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -136,8 +137,8 @@ class User extends CActiveRecord
 
 		$criteria->compare('user_id',$this->user_id);
 		$criteria->compare('name',$this->name,true);
-		$criteria->compare('password',$this->password,true);
-		$criteria->compare('autokey',$this->autokey,true);
+//		$criteria->compare('password',$this->password,true);
+//		$criteria->compare('autokey',$this->autokey,true);
 		$criteria->compare('email',$this->email,true);
 		$criteria->compare('regdate',$this->regdate);
 		$criteria->compare('sex',$this->sex);
@@ -157,5 +158,10 @@ class User extends CActiveRecord
 		return new CActiveDataProvider(get_class($this), array(
 			'criteria'=>$criteria,
 		));
+	}
+	
+	public function onAfterValidate() {
+		parent::onAfterValidate();
+		$this->password = md5($this->password);
 	}
 }

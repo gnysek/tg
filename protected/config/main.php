@@ -7,7 +7,7 @@
 // CWebApplication properties can be configured here.
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
-	'name'=>'My Web Application',
+	'name'=>'tworzegry.pl',
 
 	// preloading 'log' component
 	'preload'=>array('log'),
@@ -32,6 +32,7 @@ return array(
 	// application components
 	'components'=>array(
 		'user'=>array(
+			'class'=>'WebUser',
 			// enable cookie-based authentication
 			'allowAutoLogin'=>true,
 		),
