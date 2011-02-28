@@ -3,23 +3,26 @@ body
 	margin: 0;
 	padding: 0;
 	color: #555;
-	font: normal 10pt Arial,Helvetica,sans-serif;
-	background: #EFEFEF;
+	font: normal 10pt "Trebuchet MS",Tahoma,Arial,Verdana,sans-serif;
+	background: #222;
 }
 
 #page
 {
-	margin-top: 5px;
 	margin-bottom: 5px;
 	background: white;
 	border: 1px solid #C9E0ED;
+	border-top: none;
+	border-radius: 0 0 5px 5px;
+	-moz-border-radius: 0 0 5px 5px;
+	-webkit-border-radius: 0 0 5px 5px;
 }
 
 #header
 {
 	margin: 0;
 	padding: 0;
-	border-top: 3px solid #C9E0ED;
+	background: url('menu-bg.gif') repeat-x;
 }
 
 #content
@@ -43,8 +46,7 @@ body
 
 #logo
 {
-	padding: 10px 20px;
-	font-size: 200%;
+	padding: 10px;
 }
 
 #mainmenu

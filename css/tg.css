@@ -1,0 +1,42 @@
+#logotext{
+	color: white;
+	font-family: 'Myriad Pro';
+	font-size: 200%;
+	float: left;
+	padding: 4px 20px;
+	text-shadow: 2px 2px 0px #444;
+}
+#logotext a,#logotext a:visited{color: white; text-decoration: none;}
+#logotext a:hover{color: #ddd;}
+#logomenu {
+	float: left;
+}
+
+#logomenu ul
+{
+	padding:12px 20px 5px 20px;
+	margin:0px;
+}
+
+#logomenu ul li
+{
+	display: inline;
+}
+
+#logomenu li a {
+	background-color: #444;
+	padding: 4px 10px;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	text-decoration: none;
+	font-weight: bold;
+	color: white;
+	text-shadow: 1px 1px 0px black;
+}
+
+#logomenu li a:hover, #logomenu li.active a {
+	background-color: white;
+	color: #444;
+	text-shadow: 1px 1px 0px #ddd;
+}
