@@ -14,6 +14,8 @@
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/main.css" />
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/tg.css" />
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css" />
+	
+	<link rel="icon" type="image/png" href="<?php echo Yii::app()->request->baseUrl; ?>/css/fav.png">
 
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 </head>
@@ -25,7 +27,7 @@
 	<div id="header">
 		<div id="logo">
 			<div id="logotext">
-				<a href="<?php Yii::app()->createUrl(''); ?>"><?php echo CHtml::encode(Yii::app()->name); ?></a>
+				<?php echo CHtml::link(Yii::app()->name, array('/')); ?>
 			</div>
 			<div id="logomenu">
 				<?php
@@ -55,11 +57,20 @@
 	)); ?><!-- breadcrumbs -->
 
 	<?php echo $content; ?>
+	
+	<?php $this->widget('zii.widgets.CBreadcrumbs', array(
+		'links'=>$this->breadcrumbs,
+	)); ?><!-- breadcrumbs -->
 
 	<div id="footer">
-		Copyright &copy; <?php echo date('Y'); ?> by My Company.<br/>
-		All Rights Reserved.<br/>
-		<?php echo Yii::powered(); ?>
+		<div id="footer-c1">Copyright &copy; <?php echo date('Y'); ?></div>
+		<div id="footer-c2">
+			<?php echo CHtml::link('Główna', array('/')); ?><br/>
+			<?php echo CHtml::link('Aktualności', array('news')); ?><br/>
+			<?php echo CHtml::link('O nas', array('/site/page', 'view'=>'about')); ?><br/>
+			<?php echo CHtml::link('Kontakt', array('/site/contact')); ?>
+		</div>
+		<div class="clear"></div>
 	</div><!-- footer -->
 
 </div><!-- page -->

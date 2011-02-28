@@ -40,3 +40,9 @@
 	color: #444;
 	text-shadow: 1px 1px 0px #ddd;
 }
+
+#footer-c1,#footer-c2  {
+	float: left;
+	width: 150px;
+	margin-right: 10px;
+}
