@@ -76,7 +76,14 @@
 	)); ?><!-- breadcrumbs -->
 
 	<div id="footer">
-		Copyright &copy; <?php echo date('Y'); ?>.<br/>
+		<div id="footer-c2">
+			<?php echo CHtml::link('Główna', array('/')); ?><br/>
+			<?php echo CHtml::link('Aktualności', array('news')); ?><br/>
+			<?php echo CHtml::link('O nas', array('/site/page', 'view'=>'about')); ?><br/>
+			<?php echo CHtml::link('Kontakt', array('/site/contact')); ?>
+		</div>
+		<div id="footer-c1">Copyright &copy; <?php echo date('Y'); ?></div>
+		<div class="clear"></div>
 	</div><!-- footer -->
 
 </div><!-- page -->
