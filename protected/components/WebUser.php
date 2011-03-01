@@ -9,6 +9,7 @@ class WebUser extends CWebUser {
 	private $_model = NULL;
 
 	public function getAdmin() {
+		if (empty($this->_model)) return FALSE;
 		return $this->userModel()->admin ? TRUE : FALSE;
 	}
 	
