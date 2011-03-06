@@ -43,6 +43,7 @@
 //								array('label' => 'Kontakt', 'url' => array('/site/contact')),
 								array('label' => 'Admin', 'url' => array('/admin'), 'visible' => Yii::app()->user->admin),
 								array('label' => 'Zaloguj', 'url' => array('/site/login'), 'visible' => Yii::app()->user->isGuest),
+								array('label' => 'Rejestracja', 'url' => array('/site/register'), 'visible' => Yii::app()->user->isGuest),
 								array('label' => 'Wyloguj (' . Yii::app()->user->name . ')', 'url' => array('/site/logout'), 'visible' => !Yii::app()->user->isGuest)
 						),
 				));

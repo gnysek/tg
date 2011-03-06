@@ -63,9 +63,13 @@ class User extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('name, password, email', 'required'),
+			array('email','email'),
+			array('name', 'unique', 'message' => 'Taki login już istnieje'),
+			array('email', 'unique', 'message' => 'Taki email już istnieje'),
+//			array('password', 'authenticate', 'skipOnError'=>true),
 			array('regdate, sex, posts, games, last_time, time, active, ban, admin', 'numerical', 'integerOnly'=>true),
 			array('name, autokey, from', 'length', 'max'=>32),
-			array('password', 'length', 'max'=>38),
+			array('password', 'length', 'min' => 6, 'max'=>38),
 			array('email, real_name', 'length', 'max'=>64),
 			array('social_status, avatar', 'length', 'max'=>255),
 			array('bday', 'safe'),
@@ -160,8 +164,14 @@ class User extends CActiveRecord
 		));
 	}
 	
-	public function onAfterValidate() {
-		parent::onAfterValidate();
-		$this->password = md5($this->password);
+	protected function beforeSave()
+	{
+		if (parent::beforeSave()) {
+			if ($this->isNewRecord) {
+				$this->password = md5($this->password);
+			}
+			return true;
+		}
+		return false;
 	}
 }

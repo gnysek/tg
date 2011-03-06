@@ -100,4 +100,36 @@ class SiteController extends Controller
 		Yii::app()->user->logout();
 		$this->redirect(Yii::app()->homeUrl);
 	}
+	
+	public function actionRegister()
+	{
+		$model = new User;
+		$model->findByAttributes(array('user_id' => 1));
+
+		// walidacja ajaxem
+		if (isset($_POST['ajax']) && $_POST['ajax'] === 'register-form') {
+			echo CActiveForm::validate($model);
+			Yii::app()->end();
+		}
+
+		if (isset($_POST['User'])) {
+			$model->attributes = $_POST['User'];
+			// waliduj i rejestruj
+			if ($model->validate() && $model->save()) {
+				// ok, user zarejestrowany, teraz sproboj zalogowac
+				$login = new LoginForm;
+				// dajemy password z POSTa, bo w modelu jest juz przejechany MD5
+				$login->attributes = array('username' => $model->name, 'password' => $_POST['User']['password'], 'rememberMe' => 1);
+				// waliduj, logowanie
+				if ($login->validate() && $login->login()) {
+					$this->redirect(Yii::app()->user->returnUrl);
+				} else {
+					// nie powinno wystapic, no ale...
+					$this->redirect(Yii::app()->homeUrl);
+				}
+			}
+		}
+
+		$this->render('register', array('model' => $model));
+	}
 }
