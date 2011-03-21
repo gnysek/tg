@@ -37,6 +37,33 @@
  */
 class User extends CActiveRecord
 {
+	const MALE = 0;
+	const FEMALE = 1;
+
+	public function getSexType()
+	{
+		return array(
+			self::MALE => 'Mężczyzna',
+			self::FEMALE => 'Kobieta'
+		);
+	}
+	
+	public function getSexText()
+	{
+		$sexType = $this->getSexType();
+		return isset($sexType[$this->sex]) ? $sexType[$this->sex] : "nie podano ({$this->sex})";
+	}
+	
+	public function getRegDateText()
+	{
+		return date('Y-m-d', $this->regdate);
+	}
+	
+	public function getLastTimeText()
+	{
+		return date('H:m:s Y-m-d', $this->last_time);
+	}
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @return User the static model class
@@ -71,7 +98,8 @@ class User extends CActiveRecord
 			array('name, autokey, from', 'length', 'max'=>32),
 			array('password', 'length', 'min' => 6, 'max'=>38),
 			array('email, real_name', 'length', 'max'=>64),
-			array('social_status, avatar', 'length', 'max'=>255),
+			array('social_status, avatar', 'length', 'max' => 255),
+			array('avatar', 'file', 'types' => 'jpg, gif, png'),
 			array('bday', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -107,20 +135,20 @@ class User extends CActiveRecord
 	{
 		return array(
 			'user_id' => 'User',
-			'name' => 'Name',
-			'password' => 'Password',
+			'name' => 'Login',
+			'password' => 'Hasło',
 			'autokey' => 'Autokey',
-			'email' => 'Email',
-			'regdate' => 'Regdate',
-			'sex' => 'Sex',
-			'from' => 'From',
-			'bday' => 'Bday',
-			'real_name' => 'Real Name',
-			'social_status' => 'Social Status',
+			'email' => 'E-mail',
+			'regdate' => 'Data rejestracji',
+			'sex' => 'Płeć',
+			'from' => 'Skąd',
+			'bday' => 'Data urodzin',
+			'real_name' => 'Imię',
+			'social_status' => 'Status społeczny',
 			'avatar' => 'Avatar',
-			'posts' => 'Posts',
-			'games' => 'Games',
-			'last_time' => 'Last Time',
+			'posts' => 'Posty',
+			'games' => 'Gry',
+			'last_time' => 'Ostatnio widziany',
 			'time' => 'Time',
 			'active' => 'Active',
 			'ban' => 'Ban',

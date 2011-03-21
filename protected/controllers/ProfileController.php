@@ -2,11 +2,12 @@
 
 class ProfileController extends Controller
 {
+
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
-	public $layout='//layouts/column2';
+	public $layout = '//layouts/column2';
 
 	/**
 	 * @return array action filters
@@ -26,8 +27,12 @@ class ProfileController extends Controller
 	public function accessRules()
 	{
 		return array(
-			array('allow', // allow all users to perform 'index' and 'view' actions
-				'actions' => array('index', 'view', 'create', 'update'),
+			array('allow',
+				'actions' => array('view'),
+				'users' => array('@'),
+			),
+			array('allow',
+				'actions' => array('update'),
 				'users' => array('@'),
 			),
 			array('deny', // deny all users
@@ -42,19 +47,11 @@ class ProfileController extends Controller
 	 */
 	public function actionView($id)
 	{
-		$this->render('view', array(
-			'model' => $this->loadModel($id),
-		));
+		if (Yii::app()->user->id === $id)
+			$this->render('view', array('model' => $this->loadModel($id),));
+		else
+			throw new CHttpException(403, 'Nieprawidłowe zapytanie. Nie masz uprawnień do oglądania nie swojego profilu.');
 	}
-	
-	public function actionIndex()
-	{
-		$dataProvider=new CActiveDataProvider('User');
-		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
-		));
-	}
-
 
 	/**
 	 * Updates a particular model.
@@ -63,21 +60,40 @@ class ProfileController extends Controller
 	 */
 	public function actionUpdate($id)
 	{
-		$model = $this->loadModel($id);
-
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
-
-		if (isset($_POST['User']))
+		if (Yii::app()->user->id === $id)
 		{
-			$model->attributes = $_POST['User'];
-			if ($model->save())
-				$this->redirect(array('view', 'id' => $model->user_id));
-		}
+			$model = $this->loadModel($id);
 
-		$this->render('update', array(
-			'model' => $model,
-		));
+
+			// Uncomment the following line if AJAX validation is needed
+			// $this->performAjaxValidation($model);
+
+			if (isset($_POST['User']))
+			{
+				$model->attributes = $_POST['User'];
+				$model->avatar = CUploadedFile::getInstance($model, 'avatar');
+
+				if ($model->save())
+				{
+
+					$dir = "avatars/{$model->name}/";
+					$filename = "avatars/{$model->name}/{$model->avatar}";
+
+					if (!is_dir($dir))
+						mkdir($dir, 0777);
+
+					$model->avatar->saveAs($filename);
+
+					$this->redirect(array('view', 'id' => $model->user_id));
+				}
+			}
+
+			$this->render('update', array(
+				'model' => $model,
+			));
+		}
+		else
+			throw new CHttpException(403, 'Nieprawidłowe zapytanie. Nie masz uprawnień do edytowania nie swojego profilu.');
 	}
 
 	/**

@@ -31,6 +31,9 @@
 	<b><?php echo CHtml::encode($data->getAttributeLabel('social_status')); ?>:</b>
 	<?php echo CHtml::encode($data->social_status); ?>
 	<br />
+	
+	<b><?php echo CHtml::encode($data->getAttributeLabel('last_time')); ?>:</b>
+	<?php echo CHtml::encode($data->last_time) ?>
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('avatar')); ?>:</b>
 	<?php echo CHtml::encode($data->avatar); ?>

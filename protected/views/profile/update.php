@@ -1,15 +1,13 @@
 <?php
 $this->breadcrumbs=array(
-	'Users'=>array('index'),
-	$model->name=>array('view','id'=>$model->user_id),
-	'Update',
+	'Edytuj profil',
 );
 
 $this->menu=array(
-	array('label'=>'Back', 'url'=>array('view', 'id'=>$model->user_id))
+	array('label'=>'Wróć', 'url'=>array('view', 'id'=>$model->user_id))
 );
 ?>
 
-<h1><?php echo $model->name; ?></h1>
+<h1>Edytuj profil</h1>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

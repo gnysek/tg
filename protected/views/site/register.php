@@ -37,6 +37,9 @@ $this->breadcrumbs=array(
 			Hasło powinno mieć min. 6 liter
 		</p>
 	</div>
+	
+	<?php echo $form->hiddenField($model,'regdate', array('value'=>time()) ); ?>
+	<?php echo $form->hiddenField($model,'last_time', array('value'=>time()) ); ?>
 
 	<div class="row buttons">
 		<?php echo CHtml::submitButton('Rejestracja'); ?>
