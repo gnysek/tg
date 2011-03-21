@@ -13,6 +13,7 @@
  *
  * The followings are the available model relations:
  * @property Comment[] $comment0
+ * @property User $user
  * @property ContentImage $contentImage
  * @property ContentNews $contentNews
  * @property ContentVideo $contentVideo
@@ -62,6 +63,7 @@ class Content extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'comment0' => array(self::HAS_MANY, 'Comment', 'content_id'),
+			'user' => array(self::BELONGS_TO, 'User', 'user_id'),
 			'contentImage' => array(self::HAS_ONE, 'ContentImage', 'content_id'),
 			'contentNews' => array(self::HAS_ONE, 'ContentNews', 'content_id'),
 			'contentVideo' => array(self::HAS_ONE, 'ContentVideo', 'content_id'),
