@@ -99,7 +99,7 @@ class User extends CActiveRecord
 			array('password', 'length', 'min' => 6, 'max'=>38),
 			array('email, real_name', 'length', 'max'=>64),
 			array('social_status, avatar', 'length', 'max' => 255),
-			array('avatar', 'file', 'types' => 'jpg, gif, png'),
+			array('avatar', 'file', 'types' => 'jpg, gif, png', 'allowEmpty' => true),
 			array('bday', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -197,6 +197,7 @@ class User extends CActiveRecord
 		if (parent::beforeSave()) {
 			if ($this->isNewRecord) {
 				$this->password = md5($this->password);
+				$this->last_time = $this->regdate = time();
 			}
 			return true;
 		}
