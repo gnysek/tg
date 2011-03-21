@@ -38,9 +38,6 @@ $this->breadcrumbs=array(
 		</p>
 	</div>
 	
-	<?php echo $form->hiddenField($model,'regdate', array('value'=>time()) ); ?>
-	<?php echo $form->hiddenField($model,'last_time', array('value'=>time()) ); ?>
-
 	<div class="row buttons">
 		<?php echo CHtml::submitButton('Rejestracja'); ?>
 	</div>

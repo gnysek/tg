@@ -103,6 +103,10 @@ class SiteController extends Controller
 	
 	public function actionRegister()
 	{
+		if (!Yii::app()->user->isGuest) {
+			$this->redirect(Yii::app()->homeUrl);
+		}
+
 		$model = new User;
 		$model->findByAttributes(array('user_id' => 1));
 
