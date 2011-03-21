@@ -4,7 +4,8 @@ $this->breadcrumbs = array(
 );
 
 $this->menu = array(
-	array('label' => 'Edytuj', 'url' => array('update'))
+	array('label' => 'Edytuj', 'url' => array('update')),
+	array('label' => 'Zobacz swoje teamy', 'url' => array('/publisher')),
 );
 ?>
 

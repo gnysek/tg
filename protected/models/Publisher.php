@@ -12,6 +12,7 @@
  * @property string $desc
  *
  * The followings are the available model relations:
+ * @property Member[] $members
  */
 class Publisher extends CActiveRecord
 {
@@ -58,6 +59,7 @@ class Publisher extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'members' => array(self::HAS_MANY, 'Member', 'publisher_id'),
 		);
 	}
 
@@ -67,12 +69,12 @@ class Publisher extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'publisher_id' => 'Publisher',
-			'user_id' => 'User',
+			'publisher_id' => 'Wydawca',
+			'user_id' => 'Założyciel',
 			'type' => 'Type',
-			'name' => 'Name',
-			'www' => 'Www',
-			'desc' => 'Desc',
+			'name' => 'Nazwa',
+			'www' => 'Strona www',
+			'desc' => 'Krótki opis',
 		);
 	}
 
@@ -97,5 +99,26 @@ class Publisher extends CActiveRecord
 		return new CActiveDataProvider(get_class($this), array(
 			'criteria'=>$criteria,
 		));
+	}
+	
+	protected function beforeValidate() {
+		if ($this->isNewRecord) {
+			$this->user_id = Yii::app()->user->id;
+			$this->type = 0;
+		}
+		
+		return parent::beforeValidate();
+	}
+	
+	protected function afterSave() {
+		if ($this->isNewRecord) {
+			$model = new Member();
+			$model->publisher_id = $this->publisher_id;
+			$model->publisher_admin = 1;
+			$model->user_id = $this->user_id;
+			$model->publisher_staff_role = 'Założyciel';
+			$model->save();
+		}
+		return parent::afterSave();
 	}
 }

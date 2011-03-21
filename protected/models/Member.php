@@ -11,9 +11,8 @@
  * @property string $publisher_staff_role
  *
  * The followings are the available model relations:
+ * @property Publisher $publisher
  * @property User $user
- * @property Member $publisher
- * @property Member[] $members
  */
 class Member extends CActiveRecord
 {
@@ -59,9 +58,8 @@ class Member extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'publisher' => array(self::BELONGS_TO, 'Publisher', 'publisher_id'),
 			'user' => array(self::BELONGS_TO, 'User', 'user_id'),
-			'publisher' => array(self::BELONGS_TO, 'Member', 'publisher_id'),
-			'members' => array(self::HAS_MANY, 'Member', 'publisher_id'),
 		);
 	}
 

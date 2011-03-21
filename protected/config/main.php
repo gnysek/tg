@@ -8,6 +8,7 @@
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
 	'name'=>'tworzegry.pl',
+	'language'=>'pl',
 
 	// preloading 'log' component
 	'preload'=>array('log'),
