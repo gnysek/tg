@@ -8,6 +8,7 @@ class ProfileController extends Controller
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
 	public $layout = '//layouts/column2';
+	public $defaultAction = 'view';
 
 	/**
 	 * @return array action filters
@@ -40,17 +41,14 @@ class ProfileController extends Controller
 			),
 		);
 	}
-
+	
 	/**
 	 * Displays a particular model.
 	 * @param integer $id the ID of the model to be displayed
 	 */
-	public function actionView($id)
+	public function actionView()
 	{
-		if (Yii::app()->user->id === $id)
-			$this->render('view', array('model' => $this->loadModel($id),));
-		else
-			throw new CHttpException(403, 'Nieprawidłowe zapytanie. Nie masz uprawnień do oglądania nie swojego profilu.');
+		$this->render('view', array('model' => $this->loadModel(Yii::app()->user->id)));
 	}
 
 	/**
@@ -58,42 +56,53 @@ class ProfileController extends Controller
 	 * If update is successful, the browser will be redirected to the 'view' page.
 	 * @param integer $id the ID of the model to be updated
 	 */
-	public function actionUpdate($id)
+	public function actionUpdate()
 	{
-		if (Yii::app()->user->id === $id)
+		$model = $this->loadModel(Yii::app()->user->id);
+
+
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+
+		if (isset($_POST['User']))
 		{
-			$model = $this->loadModel($id);
+			// zapamietaj tymczasowo stary avatar
+			$oldAvatar = $model->avatar;
+			$model->attributes = $_POST['User'];
 
-
-			// Uncomment the following line if AJAX validation is needed
-			// $this->performAjaxValidation($model);
-
-			if (isset($_POST['User']))
+			if ($model->validate())
 			{
-				$model->attributes = $_POST['User'];
 				$model->avatar = CUploadedFile::getInstance($model, 'avatar');
 
-				if ($model->save())
-				{
+				if (!empty($model->avatar)) {
+					$dir = Yii::getPathOfAlias('webroot') . "/avatars/{$model->name}/";
+					$filename = $dir . $model->avatar;
 
-					$dir = "avatars/{$model->name}/";
-					$filename = "avatars/{$model->name}/{$model->avatar}";
-
+					// utworz katalog
 					if (!is_dir($dir))
-						mkdir($dir, 0777);
+						@mkdir($dir, 0777);
 
+					// zapisz nowy avatar
 					$model->avatar->saveAs($filename);
-
-					$this->redirect(array('view', 'id' => $model->user_id));
+					
+					// usun stary avatar
+					if (!empty($oldAvatar) && file_exists($dir . $oldAvatar)) {
+						@unlink($dir . $oldAvatar);
+					}
+					
+				} else {
+					// przywroc poprzedni avatar, gdy nie zapisujemy nowego
+					$model->avatar = $oldAvatar;
 				}
-			}
 
-			$this->render('update', array(
-				'model' => $model,
-			));
+				$model->save();
+				$this->redirect(array('view'));
+			}
 		}
-		else
-			throw new CHttpException(403, 'Nieprawidłowe zapytanie. Nie masz uprawnień do edytowania nie swojego profilu.');
+
+		$this->render('update', array(
+			'model' => $model,
+		));
 	}
 
 	/**

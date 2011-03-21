@@ -4,11 +4,11 @@ $this->breadcrumbs = array(
 );
 
 $this->menu = array(
-	array('label' => 'Edytuj', 'url' => array('update', 'id' => $model->user_id))
+	array('label' => 'Edytuj', 'url' => array('update'))
 );
 ?>
 
-<h1><?php echo $model->name; ?></h1>
+<h1>Profil: <?php echo $model->name; ?></h1>
 
 <?php
 $this->widget('zii.widgets.CDetailView', array(

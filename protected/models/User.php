@@ -101,6 +101,7 @@ class User extends CActiveRecord
 			array('social_status, avatar', 'length', 'max' => 255),
 			array('avatar', 'file', 'types' => 'jpg, gif, png', 'allowEmpty' => true),
 			array('bday', 'safe'),
+			//array('bday', 'datetime', 'format' => 'd/m/yyyy', 'allowEmpty' => true),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			// array('user_id, name, password, autokey, email, regdate, sex, from, bday, real_name, social_status, avatar, posts, games, last_time, time, active, ban, admin', 'safe', 'on'=>'search'),
@@ -144,7 +145,7 @@ class User extends CActiveRecord
 			'from' => 'Skąd',
 			'bday' => 'Data urodzin',
 			'real_name' => 'Imię',
-			'social_status' => 'Status społeczny',
+			'social_status' => 'Status',
 			'avatar' => 'Avatar',
 			'posts' => 'Posty',
 			'games' => 'Gry',

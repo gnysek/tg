@@ -4,7 +4,7 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'Wróć', 'url'=>array('view', 'id'=>$model->user_id))
+	array('label'=>'Wróć', 'url'=>array('view'))
 );
 ?>
 
