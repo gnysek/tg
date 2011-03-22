@@ -22,6 +22,7 @@ $this->menu = array(
 	jako <?php echo $data->publisher_staff_role; ?>.
 	<?php if ($data->publisher_admin): ?>
 		<span style="color: red;">Możesz administrować tą grupą.</span>
+		<?php echo CHtml::link('Edytuj', array('/publisher/update/','id'=>$data->publisher_id)); ?>
 	<?php endif; ?>
 	<br/>
 	<br/>

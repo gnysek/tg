@@ -45,11 +45,13 @@ class PublisherController extends Controller
 	public function actionAdd()
 	{
 		$model = new Publisher();
-		
-		if (!empty($_POST['Publisher'])) {
+
+		if (!empty($_POST['Publisher']))
+		{
 			$model->attributes = $_POST['Publisher'];
-			if ($model->validate() && $model->save()) {
-				$this->redirect(array('view'));
+			if ($model->validate() && $model->save())
+			{
+				$this->redirect(array('view', 'id' => $model->publisher_id));
 			}
 		}
 
@@ -64,26 +66,41 @@ class PublisherController extends Controller
 	public function actionIndex()
 	{
 		$publishers = Member::model()->findAll(array(
-					'select' => '*',
-					'condition' => 'user_id=:userID',
-					'params' => array(':userID' => Yii::app()->user->id),
-					'order' => 'publisher_id DESC',
-				));
+			'select' => '*',
+			'condition' => 'user_id=:userID',
+			'params' => array(':userID' => Yii::app()->user->id),
+			'order' => 'publisher_id DESC',
+		));
 		$this->render('index', array('model' => $publishers));
 	}
 
-	public function actionUpdate()
+	public function actionUpdate($id)
 	{
-		$this->render('update');
+		$model = $this->loadModel($id);
+
+		if ($model->isPublisherAdmin())
+		{
+			if (isset($_POST['Publisher']))
+			{
+				$model->attributes = $_POST['Publisher'];
+
+				if ($model->save())
+					$this->redirect(array('view', 'id' => $model->publisher_id));
+			}
+			
+			$this->render('update', array('model' => $model));
+		}
+		else
+			$this->redirect(array('view', 'id' => $model->publisher_id));
 	}
 
 	public function actionView($id)
 	{
 		$model = $this->loadModel($id);
-		
-		$this->render('view', array('model'=>$model));
+
+		$this->render('view', array('model' => $model));
 	}
-	
+
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.

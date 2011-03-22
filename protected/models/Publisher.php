@@ -16,6 +16,20 @@
  */
 class Publisher extends CActiveRecord
 {
+
+	public function isPublisherAdmin()
+	{
+		$member = Member::model()->find(array(
+			'select' => '*',
+			'condition' => 'user_id=:userID and publisher_id=:publisherID',
+			'params' => array(
+				':userID' => Yii::app()->user->id,
+				':publisherID' => $this->publisher_id),
+		));
+		
+		return $member->publisher_admin;
+	}
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @return Publisher the static model class
@@ -42,12 +56,12 @@ class Publisher extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('user_id, type, name', 'required'),
-			array('user_id, type', 'numerical', 'integerOnly'=>true),
-			array('name, www', 'length', 'max'=>255),
+			array('user_id, type', 'numerical', 'integerOnly' => true),
+			array('name, www', 'length', 'max' => 255),
 			array('desc', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('publisher_id, user_id, type, name, www, desc', 'safe', 'on'=>'search'),
+			array('publisher_id, user_id, type, name, www, desc', 'safe', 'on' => 'search'),
 		);
 	}
 
@@ -87,31 +101,35 @@ class Publisher extends CActiveRecord
 		// Warning: Please modify the following code to remove attributes that
 		// should not be searched.
 
-		$criteria=new CDbCriteria;
+		$criteria = new CDbCriteria;
 
-		$criteria->compare('publisher_id',$this->publisher_id);
-		$criteria->compare('user_id',$this->user_id);
-		$criteria->compare('type',$this->type);
-		$criteria->compare('name',$this->name,true);
-		$criteria->compare('www',$this->www,true);
-		$criteria->compare('desc',$this->desc,true);
+		$criteria->compare('publisher_id', $this->publisher_id);
+		$criteria->compare('user_id', $this->user_id);
+		$criteria->compare('type', $this->type);
+		$criteria->compare('name', $this->name, true);
+		$criteria->compare('www', $this->www, true);
+		$criteria->compare('desc', $this->desc, true);
 
 		return new CActiveDataProvider(get_class($this), array(
-			'criteria'=>$criteria,
+			'criteria' => $criteria,
 		));
 	}
-	
-	protected function beforeValidate() {
-		if ($this->isNewRecord) {
+
+	protected function beforeValidate()
+	{
+		if ($this->isNewRecord)
+		{
 			$this->user_id = Yii::app()->user->id;
 			$this->type = 0;
 		}
-		
+
 		return parent::beforeValidate();
 	}
-	
-	protected function afterSave() {
-		if ($this->isNewRecord) {
+
+	protected function afterSave()
+	{
+		if ($this->isNewRecord)
+		{
 			$model = new Member();
 			$model->publisher_id = $this->publisher_id;
 			$model->publisher_admin = 1;
@@ -121,4 +139,5 @@ class Publisher extends CActiveRecord
 		}
 		return parent::afterSave();
 	}
+
 }
