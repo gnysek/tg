@@ -15,7 +15,7 @@
 		<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/tg.css" />
 		<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css" />
 
-		<link rel="icon" type="image/png" href="<?php echo Yii::app()->request->baseUrl; ?>/css/fav.png">
+		<link rel="icon" type="image/png" href="<?php echo Yii::app()->request->baseUrl; ?>/css/fav.png"/>
 
 			<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 	</head>
