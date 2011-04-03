@@ -4,16 +4,16 @@ $this->breadcrumbs=array(
 );
 
 $this->menu = array(
-	array('label' => 'Zobacz swoje teamy', 'url' => array('my')),
+	array('label' => 'Lista wszystkich teamów', 'url' => array('index')),
 	array('label' => 'Utwórz nowy team', 'url' => array('add')),
 );
 ?>
 
-<h1>Lista Wszystkich Wydawców</h1>
+<h1>Wydawcy i Teamy do których jesteś zapisany</h1>
 
 <p>
 	Aby dodac jakąkolwiek grę, nawet w pojedynkę, musisz utworzyć team/wydawcę dla tej produkcji.<br/>
-	Poniżej znajdzuje się lista wszystkich wydawców w serwisie:
+	Poniżej znajdzuje się lista wszystkich teamów w których się znajdujesz:
 </p>
 
 <?php $i = 1; ?>
@@ -25,13 +25,13 @@ $this->menu = array(
 	</tr>
 <?php foreach ($model as $data): ?>
 	<tr>
-	<?php /* @var $data Publisher */ ?>
+	<?php /* @var $data Member */ ?>
 	<td><?php echo $i++; ?>.</td>
 	<td>
-		<?php if ($data->user_id == Yii::app()->user->id): ?>
+		<?php if ($data->publisher_admin): ?>
 			<span style="color: red;"><b>&curren;</b></span>
 		<?php endif; ?>
-		<?php echo CHtml::link($data->name,array('/publisher/view/','id'=>$data->publisher_id)); ?>
+		<?php echo CHtml::link($data->publisher->name,array('/publisher/view/','id'=>$data->publisher_id)); ?>
 	</td>
 	<td><?php echo CHtml::link('Szczegóły &raquo;',array('/publisher/view/','id'=>$data->publisher_id)); ?></td>
 	</tr>

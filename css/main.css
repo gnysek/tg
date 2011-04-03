@@ -230,3 +230,26 @@ div.search-form
 {
 	background: #80CFFF;
 }
+
+.tg-table{
+	border-bottom: 1px solid silver;
+}
+
+.tg-table th {
+	background-color: #EFFDFF;
+	border-bottom: 1px solid #dedede;
+	border-right: 1px solid silver;
+	font-size: 11px;
+}
+
+.tg-table th:last-child {
+	border-right: none;
+}
+
+.tg-table td {
+	border-top: 1px solid silver;
+	border-right: 1px solid silver;
+}
+.tg-table td:last-child {
+	border-right: none;
+}

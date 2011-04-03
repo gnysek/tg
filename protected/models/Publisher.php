@@ -20,7 +20,7 @@ class Publisher extends CActiveRecord
 	public function isPublisherAdmin()
 	{
 		$member = Member::model()->find(array(
-			'select' => '*',
+			'select' => 'publisher_admin',
 			'condition' => 'user_id=:userID and publisher_id=:publisherID',
 			'params' => array(
 				':userID' => Yii::app()->user->id,

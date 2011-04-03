@@ -1,4 +1,5 @@
 <?php
+/* @var $model Publisher */
 $this->breadcrumbs = array(
 	'Teamy / Wydawcy' => array('/publisher'),
 	'View',
@@ -8,11 +9,12 @@ $this->menu = array(
 	array('label' => 'Wróć', 'url' => array('index')),
 );
 
-if ($model->isPublisherAdmin())
+if ($model->isPublisherAdmin()) {
+	array_unshift($this->menu, array('label' => 'Dodaj członka', 'url' => array('member/browseadd', 'id' => $model->publisher_id)));
 	array_unshift($this->menu, array('label' => 'Edytuj', 'url' => array('update', 'id' => $model->publisher_id)));
+}
 ?>
-<?php /* @var $model Publisher */ ?>
-<h1><?php echo $model->name; ?></h1>
+<h1>Team: <?php echo $model->name; ?></h1>
 
 Członkowie teamu <?php echo $model->name; ?>:<br/>
 <br/>
@@ -21,8 +23,39 @@ Członkowie teamu <?php echo $model->name; ?>:<br/>
 $i = 1;
 /* @var $member Member */
 ?>
+<table class="tg-table">
+	<tr>
+		<th width="5%">Id</th>
+		<th>Nick</th>
+		<th>Pozycja</th>
+		<?php if ($model->isPublisherAdmin()): ?>
+		<th width="25%">Opcje</th>
+		<?php endif; ?>
+	</tr>
 <?php foreach ($model->members as $member): ?>
-	<?php echo $i++; ?>. <?php echo $member->user->name; ?>
-	<br/>
+	<tr>
+		<td><?php echo $i++; ?>.</td>
+		<td>
+			<?php echo $member->user->name; ?>
+			<?php if ($member->publisher_admin): ?>
+				<span style="color: red;">(może zarządzać)</span>
+			<?php endif; ?>
+			<?php if ($member->user_id == Yii::app()->user->id): ?>
+				<span style="color: purple;">(to Ty)</span>
+			<?php endif; ?>
+		</td>
+		<td>
+			<?php echo $member->publisher_staff_role; ?>
+		</td>
+		<?php if ($model->isPublisherAdmin()): ?>
+		<td>
+			<?php if ($model->user_id != $member->user->user_id): /*zalozyciela nie mozna skasowac!*/ ?>
+				Usuń &bull;
+			<?php endif; ?>
+			Edytuj
+		</td>
+		<?php endif; ?>
+	</tr>
 <?php endforeach; ?>
+</table>
 

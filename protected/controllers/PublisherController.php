@@ -29,12 +29,12 @@ class PublisherController extends Controller
 	{
 		return array(
 			array('allow',
-				'actions' => array('view', 'index', 'add', 'delete', 'update'),
+				'actions' => array('view', 'my', 'add', 'delete', 'update'),
 				'users' => array('@'),
 			),
 			array('allow',
-				'actions' => array('update'),
-				'users' => array('@'),
+				'actions' => array('index'),
+				'users' => array('*'),
 			),
 			array('deny', // deny all users
 				'users' => array('*'),
@@ -62,8 +62,13 @@ class PublisherController extends Controller
 	{
 		$this->render('delete');
 	}
+	
+	public function actionIndex() {
+		$publishers = Publisher::model()->findAll();
+		$this->render('index', array('model' => $publishers));
+	}
 
-	public function actionIndex()
+	public function actionMy()
 	{
 		$publishers = Member::model()->findAll(array(
 			'select' => '*',
@@ -71,7 +76,7 @@ class PublisherController extends Controller
 			'params' => array(':userID' => Yii::app()->user->id),
 			'order' => 'publisher_id DESC',
 		));
-		$this->render('index', array('model' => $publishers));
+		$this->render('my', array('model' => $publishers));
 	}
 
 	public function actionUpdate($id)
