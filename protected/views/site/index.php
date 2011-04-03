@@ -15,4 +15,12 @@ Witaj <b><?php echo Yii::app()->user->name ?></b>!<br/>
 <h2>Team/Wydawca</h2>
 &raquo; <?php echo CHtml::link('Utwórz nowy zespół', array('publisher/add')); ?><br/>
 &raquo; <?php echo CHtml::link('Zobacz zespoły w których się znajdujesz', array('/publisher')); ?><br/>
+<br/>
+<h2>News</h2>
+&raquo; <?php echo CHtml::link('Zobacz newsy', array('/news')); ?><br/>
+
 <?php endif; ?>
+
+<?php 
+
+//echo $this->renderPartial('//news/index', array()); ?>
