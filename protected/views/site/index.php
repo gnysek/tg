@@ -14,7 +14,7 @@ Witaj <b><?php echo Yii::app()->user->name ?></b>!<br/>
 <br/>
 <h2>Team/Wydawca</h2>
 &raquo; <?php echo CHtml::link('Utwórz nowy zespół', array('publisher/add')); ?><br/>
-&raquo; <?php echo CHtml::link('Zobacz zespoły w których się znajdujesz', array('/publisher')); ?><br/>
+&raquo; <?php echo CHtml::link('Zobacz zespoły', array('/publisher')); ?><br/>
 <br/>
 <h2>News</h2>
 &raquo; <?php echo CHtml::link('Zobacz newsy', array('/news')); ?><br/>

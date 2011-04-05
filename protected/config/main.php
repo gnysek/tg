@@ -54,7 +54,7 @@ return array(
 //			'schemaCachingDuration' => 3600,
 			'emulatePrepare' => true,
 			'username' => 'root',
-			'password' => '',
+			'password' => 'pass',
 			'charset' => 'utf8',
 //			'tablePrefix' => 'tbl_',
 		),

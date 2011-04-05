@@ -27,6 +27,9 @@ class Publisher extends CActiveRecord
 				':publisherID' => $this->publisher_id),
 		));
 		
+		if($member == null)
+			return 0;
+		
 		return $member->publisher_admin;
 	}
 

@@ -16,6 +16,40 @@
  */
 class Member extends CActiveRecord
 {
+	public function getUserName()
+	{
+		$user = User::model()->find(array(
+			'select' => 'name',
+			'condition' => 'user_id=:userId',
+			'params' => array(
+				'userId' => $this->user_id
+			)
+		));
+
+		return $user->name;
+	}
+
+	public function getPublisherName()
+	{
+		$publisher = Publisher::model()->find(array(
+			'select' => 'name',
+			'condition' => 'publisher_id=:publisherId',
+			'params' => array(
+				'publisherId' => $this->publisher_id
+			)
+		));
+		
+		return $publisher->name;
+	}
+	
+	public function getPublisherAdmin()
+	{
+		return array(
+			0 => 'nie',
+			1 => 'tak'
+		);
+	}
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @return Member the static model class
@@ -42,11 +76,11 @@ class Member extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('user_id, publisher_id, publisher_admin, publisher_staff_role', 'required'),
-			array('user_id, publisher_id, publisher_admin', 'numerical', 'integerOnly'=>true),
-			array('publisher_staff_role', 'length', 'max'=>255),
+			array('user_id, publisher_id, publisher_admin', 'numerical', 'integerOnly' => true),
+			array('publisher_staff_role', 'length', 'max' => 255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('member_id, user_id, publisher_id, publisher_admin, publisher_staff_role', 'safe', 'on'=>'search'),
+			array('member_id, user_id, publisher_id, publisher_admin, publisher_staff_role', 'safe', 'on' => 'search'),
 		);
 	}
 
@@ -86,16 +120,17 @@ class Member extends CActiveRecord
 		// Warning: Please modify the following code to remove attributes that
 		// should not be searched.
 
-		$criteria=new CDbCriteria;
+		$criteria = new CDbCriteria;
 
-		$criteria->compare('member_id',$this->member_id);
-		$criteria->compare('user_id',$this->user_id);
-		$criteria->compare('publisher_id',$this->publisher_id);
-		$criteria->compare('publisher_admin',$this->publisher_admin);
-		$criteria->compare('publisher_staff_role',$this->publisher_staff_role,true);
+		$criteria->compare('member_id', $this->member_id);
+		$criteria->compare('user_id', $this->user_id);
+		$criteria->compare('publisher_id', $this->publisher_id);
+		$criteria->compare('publisher_admin', $this->publisher_admin);
+		$criteria->compare('publisher_staff_role', $this->publisher_staff_role, true);
 
 		return new CActiveDataProvider(get_class($this), array(
-			'criteria'=>$criteria,
+			'criteria' => $criteria,
 		));
 	}
+
 }

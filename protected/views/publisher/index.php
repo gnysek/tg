@@ -31,7 +31,7 @@ $this->menu = array(
 		<?php if ($data->user_id == Yii::app()->user->id): ?>
 			<span style="color: red;"><b>&curren;</b></span>
 		<?php endif; ?>
-		<?php echo CHtml::link($data->name,array('/publisher/view/','id'=>$data->publisher_id)); ?>
+		<?php echo $data->name; ?>
 	</td>
 	<td><?php echo CHtml::link('Szczegóły &raquo;',array('/publisher/view/','id'=>$data->publisher_id)); ?></td>
 	</tr>

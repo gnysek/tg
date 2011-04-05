@@ -2,14 +2,15 @@
 /* @var $model Publisher */
 $this->breadcrumbs = array(
 	'Teamy / Wydawcy' => array('/publisher'),
-	'View',
+	$model->name,
 );
 
 $this->menu = array(
 	array('label' => 'Wróć', 'url' => array('index')),
 );
 
-if ($model->isPublisherAdmin()) {
+if ($model->isPublisherAdmin())
+{
 	array_unshift($this->menu, array('label' => 'Dodaj członka', 'url' => array('member/browseadd', 'id' => $model->publisher_id)));
 	array_unshift($this->menu, array('label' => 'Edytuj', 'url' => array('update', 'id' => $model->publisher_id)));
 }
@@ -25,37 +26,39 @@ $i = 1;
 ?>
 <table class="tg-table">
 	<tr>
-		<th width="5%">Id</th>
+		<th>Id</th>
 		<th>Nick</th>
 		<th>Pozycja</th>
 		<?php if ($model->isPublisherAdmin()): ?>
-		<th width="25%">Opcje</th>
+			<th>Opcje</th>
 		<?php endif; ?>
 	</tr>
-<?php foreach ($model->members as $member): ?>
-	<tr>
-		<td><?php echo $i++; ?>.</td>
-		<td>
-			<?php echo $member->user->name; ?>
-			<?php if ($member->publisher_admin): ?>
-				<span style="color: red;">(może zarządzać)</span>
+	<?php foreach ($model->members as $member): ?>
+		<tr>
+			<td><?php echo $i++; ?>.</td>
+			<td>
+				<?php echo $member->user->name; ?>
+				<?php if ($member->publisher_admin): ?>
+					<span style="color: red;">(może zarządzać)</span>
+				<?php endif; ?>
+				<?php if ($member->user_id == Yii::app()->user->id): ?>
+					<span style="color: purple;">(to Ty)</span>
+				<?php endif; ?>
+			</td>
+			<td>
+				<?php echo $member->publisher_staff_role; ?>
+			</td>
+			<?php if ($model->isPublisherAdmin()): ?>
+				<td>
+					<?php if ($model->user_id != $member->user->user_id): /* zalozyciela nie mozna skasowac! */ ?>
+						Usuń &bull;
+					<?php
+						endif;
+						echo CHtml::link('Edytuj', array('/member/update/', 'id' => $member->member_id));
+					?>
+				</td>
 			<?php endif; ?>
-			<?php if ($member->user_id == Yii::app()->user->id): ?>
-				<span style="color: purple;">(to Ty)</span>
-			<?php endif; ?>
-		</td>
-		<td>
-			<?php echo $member->publisher_staff_role; ?>
-		</td>
-		<?php if ($model->isPublisherAdmin()): ?>
-		<td>
-			<?php if ($model->user_id != $member->user->user_id): /*zalozyciela nie mozna skasowac!*/ ?>
-				Usuń &bull;
-			<?php endif; ?>
-			Edytuj
-		</td>
-		<?php endif; ?>
-	</tr>
-<?php endforeach; ?>
+		</tr>
+	<?php endforeach; ?>
 </table>
 
