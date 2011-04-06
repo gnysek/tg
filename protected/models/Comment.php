@@ -98,4 +98,28 @@ class Comment extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+	protected function beforeSave(){
+		if ($this->isNewRecord) {
+			$this->content_id = $_GET['id'];
+			$this->user = Yii::app()->user->id;
+			$this->date = time();
+		}
+		return parent::beforeSave();
+	}
+	
+	protected function afterSave(){
+		if ($this->isNewRecord) {
+			$model = Content::model()->findByPk($this->content_id);
+			$model->comment++;
+			$model->save();
+		}
+		return parent::afterSave();
+	
+	}
 }
+
+
+
+
+
+
