@@ -1,3 +1,8 @@
+<?php /* @var $model ContentNews */ ?>
+<h1><?php echo $model->title ?></h1>
+<?php echo $model->text ?><br/>
+<Br/>
+<?php echo $model->more; ?>
 
 <?php if (count($comm)): ?>
 <h2>Komentarze:</h2>
