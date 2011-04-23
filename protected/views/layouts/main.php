@@ -36,7 +36,7 @@
 								array('label' => 'Główna', 'url' => array('/site/index')),
 								array('label' => 'Newsy', 'url' => array('/news')),
 								//array('label' => 'Forum', 'url' => array('/forum')),
-								//array('label' => 'Gry', 'url' => array('/game')),
+								array('label' => 'Gry', 'url' => array('/game')),
 								array('label' => 'Wydawcy', 'url' => array('/publisher')),
 								//array('label' => 'Rankingi', 'url' => array('/ranking')),
 								//array('label' => 'About', 'url' => array('/site/page')),

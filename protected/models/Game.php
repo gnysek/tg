@@ -7,12 +7,12 @@
  * @property integer $game_id
  * @property integer $publisher_id
  * @property integer $user_id
- * @property integer $name
+ * @property string $name
  * @property string $version
  * @property integer $type
  * @property integer $size
  * @property integer $downloads
- * @property integer $url
+ * @property string $url
  * @property integer $comments
  * @property integer $images
  * @property integer $videos
@@ -24,6 +24,8 @@
  * @property integer $staff_fav
  *
  * The followings are the available model relations:
+ * @property Publisher $publisher
+ * @property Game[] $games
  * @property GameBugtracker[] $gameBugtrackers
  * @property GameComment[] $gameComments
  * @property GameFavs[] $gameFavs
@@ -34,6 +36,7 @@
  */
 class Game extends CActiveRecord
 {
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @return Game the static model class
@@ -59,13 +62,14 @@ class Game extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('publisher_id, user_id, name, version, type, size, downloads, url, comments, images, videos, bugtracker_enabled, voting_enabled, comments_enabled, votes, score, staff_fav', 'required'),
-			array('publisher_id, user_id, name, type, size, downloads, url, comments, images, videos, bugtracker_enabled, voting_enabled, comments_enabled, votes, staff_fav', 'numerical', 'integerOnly'=>true),
-			array('version', 'length', 'max'=>8),
-			array('score', 'length', 'max'=>1),
+			array('publisher_id, name, version, type, size, url', 'required'),
+			array('publisher_id, user_id, type, size, downloads, comments, images, videos, bugtracker_enabled, voting_enabled, comments_enabled, votes, staff_fav', 'numerical', 'integerOnly' => true),
+			array('version', 'length', 'max' => 8),
+			array('score', 'length', 'max' => 1),
+			array('name', 'length', 'max' => 255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('game_id, publisher_id, user_id, name, version, type, size, downloads, url, comments, images, videos, bugtracker_enabled, voting_enabled, comments_enabled, votes, score, staff_fav', 'safe', 'on'=>'search'),
+			array('game_id, publisher_id, user_id, name, version, type, size, downloads, url, comments, images, videos, bugtracker_enabled, voting_enabled, comments_enabled, votes, score, staff_fav', 'safe', 'on' => 'search'),
 		);
 	}
 
@@ -77,6 +81,7 @@ class Game extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'publisher' => array(self::BELONGS_TO, 'Publisher', 'publisher_id'),
 			'gameBugtrackers' => array(self::HAS_MANY, 'GameBugtracker', 'game_id'),
 			'gameComments' => array(self::HAS_MANY, 'GameComment', 'game_id'),
 			'gameFavs' => array(self::HAS_MANY, 'GameFavs', 'game_id'),
@@ -93,24 +98,24 @@ class Game extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'game_id' => 'Game',
-			'publisher_id' => 'Publisher',
-			'user_id' => 'User',
-			'name' => 'Name',
-			'version' => 'Version',
-			'type' => 'Type',
-			'size' => 'Size',
-			'downloads' => 'Downloads',
+			'game_id' => 'Id gry',
+			'publisher_id' => 'Wydawca',
+			'user_id' => 'Dodał',
+			'name' => 'Nazwa',
+			'version' => 'Numer wersji',
+			'type' => 'Typ',
+			'size' => 'Rozmiar w MB',
+			'downloads' => 'Pobrań',
 			'url' => 'Url',
-			'comments' => 'Comments',
-			'images' => 'Images',
-			'videos' => 'Videos',
-			'bugtracker_enabled' => 'Bugtracker Enabled',
-			'voting_enabled' => 'Voting Enabled',
-			'comments_enabled' => 'Comments Enabled',
-			'votes' => 'Votes',
-			'score' => 'Score',
-			'staff_fav' => 'Staff Fav',
+			'comments' => 'Komentarze',
+			'images' => 'Screeny',
+			'videos' => 'Wideo',
+			'bugtracker_enabled' => 'Bugtracker włączony',
+			'voting_enabled' => 'Ocenianie włączone',
+			'comments_enabled' => 'Komentarze włączone',
+			'votes' => 'Głosów',
+			'score' => 'Wynik',
+			'staff_fav' => 'Staff Pick',
 		);
 	}
 
@@ -123,29 +128,56 @@ class Game extends CActiveRecord
 		// Warning: Please modify the following code to remove attributes that
 		// should not be searched.
 
-		$criteria=new CDbCriteria;
+		$criteria = new CDbCriteria;
 
-		$criteria->compare('game_id',$this->game_id);
-		$criteria->compare('publisher_id',$this->publisher_id);
-		$criteria->compare('user_id',$this->user_id);
-		$criteria->compare('name',$this->name);
-		$criteria->compare('version',$this->version,true);
-		$criteria->compare('type',$this->type);
-		$criteria->compare('size',$this->size);
-		$criteria->compare('downloads',$this->downloads);
-		$criteria->compare('url',$this->url);
-		$criteria->compare('comments',$this->comments);
-		$criteria->compare('images',$this->images);
-		$criteria->compare('videos',$this->videos);
-		$criteria->compare('bugtracker_enabled',$this->bugtracker_enabled);
-		$criteria->compare('voting_enabled',$this->voting_enabled);
-		$criteria->compare('comments_enabled',$this->comments_enabled);
-		$criteria->compare('votes',$this->votes);
-		$criteria->compare('score',$this->score,true);
-		$criteria->compare('staff_fav',$this->staff_fav);
+		$criteria->compare('game_id', $this->game_id);
+		$criteria->compare('publisher_id', $this->publisher_id);
+		$criteria->compare('user_id', $this->user_id);
+		$criteria->compare('name', $this->name);
+		$criteria->compare('version', $this->version, true);
+		$criteria->compare('type', $this->type);
+		$criteria->compare('size', $this->size);
+		$criteria->compare('downloads', $this->downloads);
+		$criteria->compare('url', $this->url);
+		$criteria->compare('comments', $this->comments);
+		$criteria->compare('images', $this->images);
+		$criteria->compare('videos', $this->videos);
+		$criteria->compare('bugtracker_enabled', $this->bugtracker_enabled);
+		$criteria->compare('voting_enabled', $this->voting_enabled);
+		$criteria->compare('comments_enabled', $this->comments_enabled);
+		$criteria->compare('votes', $this->votes);
+		$criteria->compare('score', $this->score, true);
+		$criteria->compare('staff_fav', $this->staff_fav);
 
 		return new CActiveDataProvider(get_class($this), array(
-			'criteria'=>$criteria,
+			'criteria' => $criteria,
 		));
 	}
+
+	public function getTypes()
+	{
+		return array(
+			1 => 'First Playable',
+			2 => 'Alpha',
+			3 => 'Beta',
+			4 => 'Demo',
+			5 => 'Final',
+		);
+	}
+
+	public function getTypeText()
+	{
+		$x = $this->getTypes();
+		return $x[$this->type];
+	}
+
+	protected function beforeSave()
+	{
+		if ($this->isNewRecord) {
+			$this->user_id = Yii::app()->user->id;
+		}
+
+		return parent::beforeSave();
+	}
+
 }
