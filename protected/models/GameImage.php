@@ -44,7 +44,7 @@ class GameImage extends CActiveRecord
 			array('game_id, title, src, thumb_src, votes, score', 'required'),
 			array('game_id, votes', 'numerical', 'integerOnly'=>true),
 			array('title, src, thumb_src', 'length', 'max'=>255),
-			array('score', 'length', 'max'=>1),
+			array('score', 'length', 'max'=>3),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('game_id, title, src, thumb_src, votes, score', 'safe', 'on'=>'search'),
@@ -69,12 +69,12 @@ class GameImage extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'game_id' => 'Game',
-			'title' => 'Title',
-			'src' => 'Src',
-			'thumb_src' => 'Thumb Src',
-			'votes' => 'Votes',
-			'score' => 'Score',
+			'game_id' => 'Game Id',
+			'title' => 'Tytuł',
+			'src' => 'Adres obrazka',
+			'thumb_src' => 'Adres miniatury',
+			'votes' => 'Głosy',
+			'score' => 'Wynik',
 		);
 	}
 
