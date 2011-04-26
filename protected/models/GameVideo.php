@@ -69,12 +69,12 @@ class GameVideo extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'game_id' => 'Game',
-			'title' => 'Title',
-			'src' => 'Src',
-			'preview_img' => 'Preview Img',
-			'votes' => 'Votes',
-			'score' => 'Score',
+			'game_id' => 'Game Id',
+			'title' => 'Tytuł',
+			'src' => 'Adres filmu',
+			'preview_img' => 'Miniatura',
+			'votes' => 'Głosy',
+			'score' => 'Wynik',
 		);
 	}
 
