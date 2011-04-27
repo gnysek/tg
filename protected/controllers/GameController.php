@@ -53,7 +53,7 @@ class GameController extends Controller
 
 	public function actionView($id)
 	{
-		$model = Game::model()->find($id);
+		$model = Game::model()->findByPk((int)$id);
 		$this->render('view', array('model' => $model));
 	}
 
