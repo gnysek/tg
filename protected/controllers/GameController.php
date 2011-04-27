@@ -7,7 +7,8 @@ class GameController extends Controller
 
 	public function actionIndex()
 	{
-		$this->render('index');
+		$model = Game::model()->findAll();
+		$this->render('index',array('model'=>$model));
 	}
 
 	public function actionAdd()
