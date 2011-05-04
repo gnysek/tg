@@ -10,6 +10,7 @@ $form=$this->beginWidget('CActiveForm', array(
 
 <div class="row">
 <?php echo $form->hiddenField($model, 'user_id', array('value' => Yii::app()->user->id )); ?>
+<?php echo $form->hiddenField($model_news, 'content_id', array('value' => $model_news->content_id )); ?>
 <?php echo $form->labelEx($model,'text'); ?>
 <?php echo $form->textArea($model, 'text',array('rows'=>4, 'cols'=>50)); ?>
 <?php echo $form->error($model,'text'); ?>

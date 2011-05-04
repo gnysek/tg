@@ -1,15 +1,9 @@
-<table class="bug-table">
+<table class="comments-table">
 <tr>
-<td><?php echo $model->date ?></td>
-
+<td style="width: 25%;">Autor: <?php echo $model->content->user->name;  ?></td>
 </tr>
 <tr>
-<td style="width: 25%;"><?php echo $model->content->user->name;  ?></td>
-</tr>
-<tr>
-<td style="width: 25%;"><?php echo $model->content_id;  ?></td>
-</tr>
-<tr>
-<td colspan="3"><tt><?php echo $model->text ?></tt></td>
+<td colspan="3">Treść: <?php echo $model->text ?></td>
 </tr>
 </table>
+<hr/>

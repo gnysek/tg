@@ -3,7 +3,8 @@
 <?php echo $model->text ?><br/>
 <Br/>
 <?php echo $model->more; ?>
-
+<br/>
+<br/>
 <?php if (count($comm)): ?>
 <h2>Komentarze:</h2>
 <?php
@@ -14,4 +15,4 @@ foreach ($comm as $wpis) {
 ?>
 <?php endif; ?>
 
-<?php echo $this->renderPartial('_commform', array('model'=>$modelComm)); ?>
+<?php echo $this->renderPartial('_commform', array('model'=>$modelComm, 'model_news'=>$model)); ?>

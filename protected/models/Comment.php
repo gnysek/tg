@@ -110,7 +110,7 @@ class Comment extends CActiveRecord
 	protected function afterSave(){
 		if ($this->isNewRecord) {
 			$model = Content::model()->findByPk($this->content_id);
-			$model->comment++;
+			$model->comments++;
 			$model->save();
 		}
 		return parent::afterSave();

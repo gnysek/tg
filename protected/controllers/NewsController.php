@@ -12,6 +12,8 @@ class NewsController extends Controller
 		$modelComm = new Comment;
 		
 		if(isset($_POST['Comment'])){
+		$modelComm->content_id = $id;
+		$modelComm->date = time();
 		$modelComm->attributes=$_POST['Comment'];
 			if($modelComm->save())
 				$this->redirect(array('view','id'=>$id));
@@ -19,8 +21,8 @@ class NewsController extends Controller
 			
 		$comm = Comment::model()->findAll(array(
 			'select' => '*',
-			'condition' => 'comm_id=:commID',
-			'params' => array(':commID' => $id),
+			'condition' => 'content_id=:commID',
+			'params' => array(':commID' => $id ),
 			'order' => 'date ASC',
 		));
 		
@@ -31,8 +33,9 @@ class NewsController extends Controller
 		));
 	}
 	
+	
 	public function loadModel($id){
-		$model=Comment::model()->findByPk((int)$id);
+		$model=ContentNews::model()->findByPk((int)$id);
 		if($model===null)
 			//throw new CHttpException(404,'The requested page does not exist.');
 			$this->redirect(array('index','id'=>$id));
