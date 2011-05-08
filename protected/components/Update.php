@@ -50,6 +50,13 @@ class Update
 			$model->value = 3;
 			$model->save();
 		}
+		if ($model->value == 3) {
+			$connection = Yii::app()->db;
+			$command = $connection->createCommand("ALTER TABLE `fcat` CHANGE `last_post_data` `last_post_data` INT( 10 ) NOT NULL;");
+			$command->execute();
+			$model->value = 4;
+			$model->save();
+		}
 	}
 
 }

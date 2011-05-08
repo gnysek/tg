@@ -16,6 +16,7 @@
  */
 class Post extends CActiveRecord
 {
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @return Post the static model class
@@ -41,11 +42,11 @@ class Post extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('topic_id, user_id, text', 'required'),
-			array('topic_id, user_id', 'numerical', 'integerOnly'=>true),
+			array('text', 'required'),
+			array('topic_id, user_id', 'numerical', 'integerOnly' => true),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('post_id, topic_id, user_id, text', 'safe', 'on'=>'search'),
+			array('post_id, topic_id, user_id, text', 'safe', 'on' => 'search'),
 		);
 	}
 
@@ -69,10 +70,10 @@ class Post extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'post_id' => 'Post',
-			'topic_id' => 'Topic',
-			'user_id' => 'User',
-			'text' => 'Text',
+			'post_id' => 'ID Postu',
+			'topic_id' => 'ID Tematu',
+			'user_id' => 'Autor',
+			'text' => 'Treść Postu',
 		);
 	}
 
@@ -85,15 +86,45 @@ class Post extends CActiveRecord
 		// Warning: Please modify the following code to remove attributes that
 		// should not be searched.
 
-		$criteria=new CDbCriteria;
+		$criteria = new CDbCriteria;
 
-		$criteria->compare('post_id',$this->post_id);
-		$criteria->compare('topic_id',$this->topic_id);
-		$criteria->compare('user_id',$this->user_id);
-		$criteria->compare('text',$this->text,true);
+		$criteria->compare('post_id', $this->post_id);
+		$criteria->compare('topic_id', $this->topic_id);
+		$criteria->compare('user_id', $this->user_id);
+		$criteria->compare('text', $this->text, true);
 
 		return new CActiveDataProvider(get_class($this), array(
-			'criteria'=>$criteria,
+			'criteria' => $criteria,
 		));
 	}
+
+	protected function beforeSave()
+	{
+		if (parent::beforeSave()) {
+			if ($this->isNewRecord) {
+				$this->user_id = Yii::app()->user->id;
+			}
+			$this->text = htmlspecialchars($this->text);
+			return true;
+		}
+		return false;
+	}
+
+	protected function afterSave()
+	{
+		if (parent::afterSave()) {
+			// zaktualizuj informacje w oryginalnym topicu
+			/* @var $model Topic */
+			$model = Topic::model()->findByPk($this->topic_id);
+			$model->last_post_data = serialize(array(
+				'user_id' => $this->user_id,
+				'user_name' => Yii::app()->user->name,
+				'pid' => $this->post_id,
+				'time' => time(),
+			));
+			return true;
+		}
+		return false;
+	}
+
 }

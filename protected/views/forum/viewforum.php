@@ -4,7 +4,7 @@ $this->breadcrumbs = array(
 	'Viewforum',
 );
 ?>
-<h1>Katagoria: <?php echo $forum->name ?></h1>
+<h1>Kategoria: <?php echo $forum->name ?></h1>
 
 <?php echo CHtml::link('+ Nowy temat', array('forum/posting', 'id' => $forum->forum_id, 'topic' => 0)); ?>
 <div>&nbsp;</div>
@@ -17,11 +17,16 @@ $this->breadcrumbs = array(
 
 	<?php if ($total == 0): ?>
 		<tr>
-			<td colspan="3">Ups, nikt nic jeszcze nie napisał w tym dziale!</td>
+			<td colspan="3" style="text-align: center;">Ups, nikt nic jeszcze nie napisał w tym dziale =)</td>
 		</tr>
 	<?php else: ?>
-		<tr>
-			<td colspan="3">Tutaj powinny być widoczne tematy... ale jeszcze tego nie zrobiłem!</td>
-		</tr>
+		<?php
+		$this->widget('zii.widgets.CListView', array(
+			'dataProvider' => $dataProvider,
+			'itemView' => '_viewforum',
+			'viewData' => array(),
+			'enablePagination' => true,
+		));
+		?>
 	<?php endif; ?>
 </table>

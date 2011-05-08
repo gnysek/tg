@@ -9,9 +9,59 @@ class ForumController extends Controller
 		$this->render('index', array('model' => $model));
 	}
 
-	public function actionPosting()
+	// parametry: id forum, id tematu
+	public function actionPosting($id, $topic=0)
 	{
-		$this->render('posting');
+		/* @var $fcat Fcat */
+		$fcat = Fcat::model()->findByPk($id);
+		$model = new Post();
+		$modelTopic = new Topic();
+
+		$canSave = TRUE;
+		if (empty($topic)) {
+			if (!empty($_POST['Topic'])) {
+				$modelTopic->attributes = $_POST['Topic'];
+				$modelTopic->cat_id = $fcat->cat_id;
+				$modelTopic->forum_id = $fcat->forum_id;
+				if (!$modelTopic->validate()) {
+					$canSave = FALSE;
+				}
+			}
+		}
+
+		if (!empty($_POST['Post'])) {
+			// jesli $topic = 0 to znaczy, ze to nowy temat
+			$model->attributes = $_POST['Post'];
+			if (!$model->validate()) {
+				$canSave = FALSE;
+			}
+			// jeśli mozna zapisywać, to zapisujemy
+			if ($canSave) {
+				// gdy to jest nowy temat
+				if (empty($topic)) {
+					$modelTopic->save();
+					// mamy zapisany temat, wiec znamy jego ID
+					$topic = $modelTopic->topic_id;
+				}
+				$model->topic_id = $topic;
+				// zapisujemy temat normalnie
+				$model->save();
+				// jesli to nowy temat, zaktualizuj info
+				if (!empty($topic)) {
+					$modelTopic->topic_data = serialize(array(
+						'user_id' => $model->user_id,
+						'user_name' => Yii::app()->user->name,
+						'pid' => $model->post_id,
+						'time' => time(),
+							));
+					$modelTopic->save();
+				}
+				$this->redirect(array('viewtopic', 'id' => $model->topic_id));
+			}
+		}
+
+
+		$this->render('posting', array('fcat' => $fcat, 'model' => $model, 'modelTopic' => $modelTopic, 'fid' => $id, 'tid' => $topic));
 	}
 
 	public function actionViewcat()
@@ -25,19 +75,23 @@ class ForumController extends Controller
 	{
 		$forum = Forum::model()->findByPk($id);
 		$total = Topic::model()->count("topic_id = $id");
-		$model = Topic::model()->findAll(array(
-					'select' => '*',
-					'condition' => 'cat_id=:catID',
-					'params' => array(':catID' => $id),
-					'order' => 'topic_id DESC'
-				)); //
-		// ByAttributes('fcat_id', $id);
-		$this->render('viewforum', array('forum' => $forum, 'model' => $model, 'total' => $total));
+		$criteria = new CDbCriteria();
+		$criteria->addColumnCondition(array('cat_id = $id'));
+		$dataProvider = new CActiveDataProvider('Topic', array(
+					'criteria' => $criteria,
+				));
+		$this->render('viewforum', array('forum' => $forum, 'dataProvider' => $dataProvider, 'total' => $total));
 	}
 
-	public function actionViewtopic()
+	public function actionViewtopic($id)
 	{
-		$this->render('viewtopic');
+		$topic = Topic::model()->findByPk($id);
+		$criteria = new CDbCriteria();
+		$criteria->addColumnCondition(array('cat_id = $id'));
+		$dataProvider = new CActiveDataProvider('Post', array(
+					'criteria' => $criteria,
+				));
+		$this->render('viewtopic', array('topic' => $topic, 'dataProvider' => $dataProvider,));
 	}
 
 	// Uncomment the following methods and override them if needed
@@ -61,7 +115,11 @@ class ForumController extends Controller
 	  'action1'=>'path.to.ActionClass',
 	  'action2'=>array(
 	  'class'=>'path.to.AnotherActionClass',
-	  'propertyName'=>'propertyValue',
+	  'propertyName'=>'propertyValue
+
+
+
+	  ',
 	  ),
 	  );
 	  }

@@ -46,7 +46,7 @@ class Topic extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('cat_id, forum_id, status, type, title, posts, topic_data, last_post_data', 'required'),
+			array('title', 'required'),
 			array('cat_id, forum_id, status, type, posts', 'numerical', 'integerOnly'=>true),
 			array('title', 'length', 'max'=>255),
 			// The following rule is used by search().
@@ -75,15 +75,15 @@ class Topic extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'topic_id' => 'Topic',
-			'cat_id' => 'Cat',
-			'forum_id' => 'Forum',
+			'topic_id' => 'Tytuł',
+			'cat_id' => 'ID Kategorii',
+			'forum_id' => 'ID forum',
 			'status' => 'Status',
-			'type' => 'Type',
-			'title' => 'Title',
-			'posts' => 'Posts',
-			'topic_data' => 'Topic Data',
-			'last_post_data' => 'Last Post Data',
+			'type' => 'Typ',
+			'title' => 'Tytuł',
+			'posts' => 'Postów',
+			'topic_data' => 'Dane tematu',
+			'last_post_data' => 'Dane ostatniego postu',
 		);
 	}
 
@@ -111,5 +111,20 @@ class Topic extends CActiveRecord
 		return new CActiveDataProvider(get_class($this), array(
 			'criteria'=>$criteria,
 		));
+	}
+	
+	protected function beforeSave()
+	{
+		if (parent::beforeSave()) {
+			if ($this->isNewRecord) {
+				$this->status = 1;
+				$this->type = 1;
+				$this->posts = 1;
+				$this->topic_data = serialize(array());
+				$this->last_post_data = serialize(array());
+			}
+			return true;
+		}
+		return false;
 	}
 }
