@@ -57,6 +57,20 @@ class Update
 			$model->value = 4;
 			$model->save();
 		}
+		if ($model->value == 4) {
+			$connection = Yii::app()->db;
+			$command = $connection->createCommand("ALTER TABLE `game_bugtracker` DROP FOREIGN KEY `game_bugtracker_ibfk_2`;");
+			$command->execute();
+			$command = $connection->createCommand("ALTER TABLE `game_bugtracker` ADD FOREIGN KEY ( `bug_reporter` ) REFERENCES `tg`.`user` (
+					`user_id`
+					) ON DELETE CASCADE ON UPDATE CASCADE ;");
+			$command->execute();
+			$model->value = 5;
+			$model->save();
+		}
+		
+
+
 	}
 
 }
