@@ -73,21 +73,21 @@ class ForumController extends Controller
 
 	public function actionViewforum($id)
 	{
-		$forum = Forum::model()->findByPk($id);
+		$fcat = Fcat::model()->findByPk($id);
 		$total = Topic::model()->count("topic_id = $id");
 		$criteria = new CDbCriteria();
-		$criteria->addColumnCondition(array('cat_id = $id'));
+		$criteria->addCondition(array("cat_id = $id"));
 		$dataProvider = new CActiveDataProvider('Topic', array(
 					'criteria' => $criteria,
 				));
-		$this->render('viewforum', array('forum' => $forum, 'dataProvider' => $dataProvider, 'total' => $total));
+		$this->render('viewforum', array('fcat' => $fcat, 'dataProvider' => $dataProvider, 'total' => $total));
 	}
 
 	public function actionViewtopic($id)
 	{
 		$topic = Topic::model()->findByPk($id);
 		$criteria = new CDbCriteria();
-		$criteria->addColumnCondition(array('cat_id = $id'));
+		$criteria->addCondition(array("topic_id = $id"));
 		$dataProvider = new CActiveDataProvider('Post', array(
 					'criteria' => $criteria,
 				));

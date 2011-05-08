@@ -1,12 +1,14 @@
 <?php
+/* @var $fcat Fcat */
 $this->breadcrumbs = array(
 	'Forum' => array('/forum'),
-	'Viewforum',
+	$fcat->forum->name => array('/forum'),
+	$fcat->name,
 );
 ?>
-<h1>Kategoria: <?php echo $forum->name ?></h1>
+<h1>Kategoria: <?php echo $fcat->forum->name . '/' . $fcat->name ?></h1>
 
-<?php echo CHtml::link('+ Nowy temat', array('forum/posting', 'id' => $forum->forum_id, 'topic' => 0)); ?>
+<?php echo CHtml::link('+ Nowy temat', array('forum/posting', 'id' => $fcat->forum_id, 'topic' => 0)); ?>
 <div>&nbsp;</div>
 <table class="tg-table">
 	<tr>

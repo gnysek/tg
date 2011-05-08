@@ -1,7 +1,10 @@
 <?php
+/* @var $topic Topic */
 $this->breadcrumbs = array(
 	'Forum' => array('/forum'),
-	'Viewtopic',
+	$topic->forum->name => array('/forum'),
+	$topic->cat->name => array('/forum/viewforum', 'id' => $topic->forum_id),
+	$topic->title,
 );
 ?>
 <h1>Temat: <?php echo $topic->title ?></h1>
