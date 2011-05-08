@@ -65,7 +65,7 @@ class Game extends CActiveRecord
 			array('publisher_id, name, version, type, size, url', 'required'),
 			array('publisher_id, user_id, type, size, downloads, comments, images, videos, bugtracker_enabled, voting_enabled, comments_enabled, votes, staff_fav', 'numerical', 'integerOnly' => true),
 			array('version', 'length', 'max' => 8),
-			array('score', 'length', 'max' => 1),
+			array('score', 'length', 'max' => 4),
 			array('name', 'length', 'max' => 255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.

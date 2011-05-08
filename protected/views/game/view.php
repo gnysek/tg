@@ -24,6 +24,7 @@ if ($model->publisher->isPublisherAdmin())
 		array_push($this->menu, array('label' => "Edytuj video", 'url' => array('/gameVideo/update', 'gameId' => $model->game_id)));
 		array_push($this->menu, array('label' => "Usuń video", 'url' => '#', 'linkOptions' => array('submit' => array('/gameVideo/delete', 'gameId' => $model->game_id), 'confirm' => 'Czy napewno chcesz to zrobić ?')));
 	}
+	array_push($this->menu, array('label' => "Edytuj swoją grę", 'url' => array('/game/update', 'id' => $model->game_id , 'pub' => $model->publisher->name)));
 }
 ?>
 <h1><?php echo $model->name ?></h1>

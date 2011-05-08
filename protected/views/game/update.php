@@ -1,11 +1,14 @@
 <?php
 $this->breadcrumbs=array(
 	'Game'=>array('/game'),
-	'Update',
-);?>
-<h1><?php echo $this->id . '/' . $this->action->id; ?></h1>
+	'Edytuj grę',
+);
+$this->menu=array(
+	array('label'=>'Wróć', 'url'=>array('view', 'id' => $model->game_id))
+);
 
-<p>
-	You may change the content of this page by modifying
-	the file <tt><?php echo __FILE__; ?></tt>.
-</p>
+?>
+
+<h1>Edytuj grę</h1>
+
+<?php echo $this->renderPartial('_form', array('model'=>$model, 'pub' => $pub)); ?>

@@ -46,9 +46,23 @@ class GameController extends Controller
 		$this->render('delete');
 	}
 
-	public function actionUpdate()
+	public function actionUpdate($id)
 	{
-		$this->render('update');
+		$model = $this->loadModel($id);
+		$pub[$model->publisher->publisher_id] = $model->publisher->name;
+
+		if ($model->publisher->isPublisherAdmin()){
+			if (!empty($_POST['Game'])){
+				$model->attributes = $_POST['Game'];
+				if ($model->save()) {
+					$this->redirect(array('view', 'id' => $model->game_id));
+				}
+			}
+			
+			$this->render('update', array('model' => $model, 'pub' => $pub));
+		}
+		else
+			$this->redirect(array('view', 'id' => $model->game_id));
 	}
 
 	public function actionView($id)
@@ -62,6 +76,15 @@ class GameController extends Controller
 		$this->render('vote');
 	}
 
+	
+	public function loadModel($id)
+	{
+		$model = Game::model()->findByPk((int) $id);
+		if ($model === null)
+			throw new CHttpException(404, 'The requested page does not exist.');
+		return $model;
+	}
+	
 	// Uncomment the following methods and override them if needed
 	/*
 	  public function filters()
@@ -89,3 +112,4 @@ class GameController extends Controller
 	  }
 	 */
 }
+
