@@ -26,10 +26,10 @@ $form=$this->beginWidget('CActiveForm', array(
 	</div>
 
 	<div class="row buttons">
-		<?php if (!$tid) {
-			echo CHtml::submitButton($model->isNewRecord ? 'Dodaj' : 'Zapisz');
-		} else {
+		<?php if (empty($tid)) {
 			echo CHtml::submitButton($model->isNewRecord ? 'Utwórz nowy temat' : 'Zapisz');
+		} else {
+			echo CHtml::submitButton($model->isNewRecord ? 'Dodaj' : 'Zapisz');
 		}
 		?>
 	</div>

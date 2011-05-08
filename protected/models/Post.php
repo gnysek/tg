@@ -122,6 +122,8 @@ class Post extends CActiveRecord
 				'pid' => $this->post_id,
 				'time' => time(),
 			));
+			$model->posts++;
+			$model->save();
 			return true;
 		}
 		return false;
