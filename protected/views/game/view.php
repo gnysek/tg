@@ -4,7 +4,7 @@ $this->breadcrumbs = array(
 	'Game' => array('/game'),
 	$model->name,
 );
-
+//print_r($model);
 $this->menu = array();
 
 if ($model->publisher->isPublisherAdmin())
@@ -24,7 +24,17 @@ if ($model->publisher->isPublisherAdmin())
 		array_push($this->menu, array('label' => "Edytuj video", 'url' => array('/gameVideo/update', 'gameId' => $model->game_id)));
 		array_push($this->menu, array('label' => "Usuń video", 'url' => '#', 'linkOptions' => array('submit' => array('/gameVideo/delete', 'gameId' => $model->game_id), 'confirm' => 'Czy napewno chcesz to zrobić ?')));
 	}
-	array_push($this->menu, array('label' => "Edytuj swoją grę", 'url' => array('/game/update', 'id' => $model->game_id , 'pub' => $model->publisher->name)));
+		array_push($this->menu, array('label' => "Edytuj grę", 'url' => array('/game/update', 'id' => $model->game_id , 'pub' => $model->publisher->name)));
+		
+		if ($model->bugtracker_enabled == 1){
+			array_push($this->menu, array('label' => "Zobacz swoje bugi", 'url' => array('/gameBugtracker/view', 'id' => $model->game_id)));
+		}
+		
+} else {
+	if ($model->bugtracker_enabled == 1){
+		array_push($this->menu, array('label' => "Add bug", 'url' => array('/gameBugtracker/create', 'gameId' => $model->game_id)));
+		array_push($this->menu, array('label' => "Zobacz bugi gry", 'url' => array('/gameBugtracker/view', 'id' => $model->game_id)));	
+	}
 }
 ?>
 <h1><?php echo $model->name ?></h1>
