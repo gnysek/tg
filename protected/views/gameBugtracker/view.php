@@ -1,12 +1,16 @@
 <?php
 $this->breadcrumbs=array(
-	'Game Bugtrackers'=>array('index'),
-	$model->bug_id,
+	'Bugtracker'=>array('index'),
+	$model->name,
 );
+
+$this->menu = array(
+		array('label' => "Dodaj buga", 'url' => array('/gameBugtracker/create', 'gameId' => $model->game_id)),
+	);
 
 if (count($bug)): ?>
 <h2>Bugi:</h2>
-<table>
+<table class="tg-table">
 <tr>
 <th>Status</th><th>Typ</th><th>Opis</th><th>Odpowiedz</th>
 </tr>
@@ -16,6 +20,8 @@ foreach ($bug as $bag) {
 	echo $this->renderPartial('_view', array('model' => $bag, 'id' => ++$i ));
 }
 ?>
+<?php else: ?>
+<h2>Brak zgłoszonych bugów ;)</h2>
 <?php endif; ?>
 
 </table>
