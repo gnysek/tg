@@ -20,6 +20,18 @@
  */
 class GameBugtracker extends CActiveRecord
 {
+	const STATUS_NEW = 0;
+	const STATUS_KNOW = 1;
+	const STATUS_PROGRESS = 2;
+	const STATUS_FEEDBACK = 3;
+	const STATUS_FIXED = 4;
+	const STATUS_WONT_FIX = 5;
+	const STATUS_CLOSED = 6;
+
+	const TYPE_MIS = 0;
+	const TYPE_NEW = 1;
+	const TYPE_PRO = 2;
+	
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @return GameBugtracker the static model class
@@ -74,13 +86,34 @@ class GameBugtracker extends CActiveRecord
 		return array(
 			'bug_id' => 'Bug',
 			'game_id' => 'Game',
-			'bug_reporter' => 'Bug Reporter',
-			'type' => 'Type',
+			'bug_reporter' => 'Zgłaszający',
+			'type' => 'Typ',
 			'status' => 'Status',
-			'text' => 'Text',
-			'reply' => 'Reply',
-			'date' => 'Date',
+			'text' => 'Opis',
+			'reply' => 'Odpowiedź',
+			'date' => 'Data',
 			'update_date' => 'Update Date',
+		);
+	}
+	
+	
+	public function _getStatusOptions() {
+		return array(
+			self::STATUS_NEW => 'Nowy',
+			self::STATUS_KNOW => 'Przyjęty',
+			self::STATUS_PROGRESS => 'W trakcie',
+			self::STATUS_FIXED => 'Naprawiony',
+			self::STATUS_CLOSED => 'Zamknięty',
+			self::STATUS_WONT_FIX => 'Odrzucony',
+			self::STATUS_FEEDBACK => 'Feedback',
+		);
+	}
+	
+	public function _getType() {
+		return array(
+			self::TYPE_MIS => 'Błąd',
+			self::TYPE_NEW => 'Podpowiedź',
+			self::TYPE_PRO => 'Propozycja',
 		);
 	}
 
@@ -109,4 +142,5 @@ class GameBugtracker extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+
 }

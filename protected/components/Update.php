@@ -50,6 +50,7 @@ class Update
 			$model->value = 3;
 			$model->save();
 		}
+		
 		if ($model->value == 3) {
 			$connection = Yii::app()->db;
 			$command = $connection->createCommand("ALTER TABLE `fcat` CHANGE `last_post_data` `last_post_data` INT( 10 ) NOT NULL;");
@@ -57,7 +58,32 @@ class Update
 			$model->value = 4;
 			$model->save();
 		}
+		
 		if ($model->value == 4) {
+			$connection = Yii::app()->db;
+			$command = $connection->createCommand("ALTER TABLE `game_video` ADD INDEX ( `game_id` );");
+			$command->execute();
+			$command = $connection->createCommand("ALTER TABLE `game_video` DROP PRIMARY KEY;");
+			$command->execute();
+			$command = $connection->createCommand("ALTER TABLE `game_video` ADD `video_id` INT( 10 ) NOT NULL AUTO_INCREMENT PRIMARY KEY FIRST;");
+			$command->execute();
+			$model->value = 5;
+			$model->save();
+		}
+		
+		if ($model->value == 5) {
+			$connection = Yii::app()->db;
+			$command = $connection->createCommand("ALTER TABLE `game_image` ADD INDEX ( `game_id` );");
+			$command->execute();
+			$command = $connection->createCommand("ALTER TABLE `game_image` DROP PRIMARY KEY;");
+			$command->execute();
+			$command = $connection->createCommand("ALTER TABLE `game_image` ADD `image_id` INT( 10 ) NOT NULL AUTO_INCREMENT PRIMARY KEY FIRST;");
+			$command->execute();
+			$model->value = 6;
+			$model->save();
+		}
+
+		if ($model->value == 6) {
 			$connection = Yii::app()->db;
 			$command = $connection->createCommand("ALTER TABLE `game_bugtracker` DROP FOREIGN KEY `game_bugtracker_ibfk_2`;");
 			$command->execute();
@@ -65,12 +91,9 @@ class Update
 					`user_id`
 					) ON DELETE CASCADE ON UPDATE CASCADE ;");
 			$command->execute();
-			$model->value = 5;
+			$model->value = 7;
 			$model->save();
 		}
-		
-
-
 	}
 
 }

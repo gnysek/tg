@@ -29,8 +29,8 @@
  * @property GameBugtracker[] $gameBugtrackers
  * @property GameComment[] $gameComments
  * @property GameFavs[] $gameFavs
- * @property GameImage $gameImage
- * @property GameVideo $gameVideo
+ * @property GameImage[] $gameImage
+ * @property GameVideo[] $gameVideo
  * @property GameVote $gameVote
  * @property RankingGame[] $rankingGames
  */
@@ -65,7 +65,7 @@ class Game extends CActiveRecord
 			array('publisher_id, name, version, type, size, url', 'required'),
 			array('publisher_id, user_id, type, size, downloads, comments, images, videos, bugtracker_enabled, voting_enabled, comments_enabled, votes, staff_fav', 'numerical', 'integerOnly' => true),
 			array('version', 'length', 'max' => 8),
-			array('score', 'length', 'max' => 1),
+			array('score', 'length', 'max' => 4),
 			array('name', 'length', 'max' => 255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -85,8 +85,8 @@ class Game extends CActiveRecord
 			'gameBugtrackers' => array(self::HAS_MANY, 'GameBugtracker', 'game_id'),
 			'gameComments' => array(self::HAS_MANY, 'GameComment', 'game_id'),
 			'gameFavs' => array(self::HAS_MANY, 'GameFavs', 'game_id'),
-			'gameImage' => array(self::HAS_ONE, 'GameImage', 'game_id'),
-			'gameVideo' => array(self::HAS_ONE, 'GameVideo', 'game_id'),
+			'gameImage' => array(self::HAS_MANY, 'GameImage', 'game_id'),
+			'gameVideo' => array(self::HAS_MANY, 'GameVideo', 'game_id'),
 			'gameVote' => array(self::HAS_ONE, 'GameVote', 'game_id'),
 			'rankingGames' => array(self::HAS_MANY, 'RankingGame', 'game_id'),
 		);

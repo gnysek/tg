@@ -44,7 +44,7 @@ class GameVideo extends CActiveRecord
 			array('game_id, title, src, preview_img, votes, score', 'required'),
 			array('game_id, votes', 'numerical', 'integerOnly'=>true),
 			array('title, src, preview_img', 'length', 'max'=>255),
-			array('score', 'length', 'max'=>1),
+			array('score', 'length', 'max'=>3),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('game_id, title, src, preview_img, votes, score', 'safe', 'on'=>'search'),

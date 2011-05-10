@@ -66,7 +66,7 @@
 	</div>
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton('Zapisz'); ?>
+		<?php echo CHtml::submitButton($model->isNewRecord ? 'Dodaj' : 'Zapisz'); ?>
 	</div>
 
 <?php $this->endWidget(); ?>
