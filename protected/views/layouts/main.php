@@ -17,7 +17,7 @@
 
 		<link rel="icon" type="image/png" href="<?php echo Yii::app()->request->baseUrl; ?>/css/fav.png"/>
 
-			<title><?php echo CHtml::encode($this->pageTitle); ?></title>
+		<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 	</head>
 
 	<body>

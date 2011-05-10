@@ -29,8 +29,8 @@
  * @property GameBugtracker[] $gameBugtrackers
  * @property GameComment[] $gameComments
  * @property GameFavs[] $gameFavs
- * @property GameImage $gameImage
- * @property GameVideo $gameVideo
+ * @property GameImage[] $gameImage
+ * @property GameVideo[] $gameVideo
  * @property GameVote $gameVote
  * @property RankingGame[] $rankingGames
  */
@@ -85,8 +85,8 @@ class Game extends CActiveRecord
 			'gameBugtrackers' => array(self::HAS_MANY, 'GameBugtracker', 'game_id'),
 			'gameComments' => array(self::HAS_MANY, 'GameComment', 'game_id'),
 			'gameFavs' => array(self::HAS_MANY, 'GameFavs', 'game_id'),
-			'gameImage' => array(self::HAS_ONE, 'GameImage', 'game_id'),
-			'gameVideo' => array(self::HAS_ONE, 'GameVideo', 'game_id'),
+			'gameImage' => array(self::HAS_MANY, 'GameImage', 'game_id'),
+			'gameVideo' => array(self::HAS_MANY, 'GameVideo', 'game_id'),
 			'gameVote' => array(self::HAS_ONE, 'GameVote', 'game_id'),
 			'rankingGames' => array(self::HAS_MANY, 'RankingGame', 'game_id'),
 		);

@@ -57,6 +57,26 @@ class Update
 			$model->value = 4;
 			$model->save();
 		}
+		
+		if ($model->value == 4) {
+			$connection = Yii::app()->db;
+			$command = $connection->createCommand("ALTER TABLE `game_video` DROP PRIMARY KEY;");
+			$command->execute();
+			$command = $connection->createCommand("ALTER TABLE `game_video` ADD `video_id` INT( 10 ) NOT NULL AUTO_INCREMENT PRIMARY KEY FIRST;");
+			$command->execute();
+			$model->value = 5;
+			$model->save();
+		}
+		
+		if ($model->value == 5) {
+			$connection = Yii::app()->db;
+			$command = $connection->createCommand("ALTER TABLE `game_image` DROP PRIMARY KEY;");
+			$command->execute();
+			$command = $connection->createCommand("ALTER TABLE `game_image` ADD `image_id` INT( 10 ) NOT NULL AUTO_INCREMENT PRIMARY KEY FIRST;");
+			$command->execute();
+			$model->value = 6;
+			$model->save();
+		}
 	}
 
 }

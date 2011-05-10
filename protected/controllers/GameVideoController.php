@@ -35,19 +35,6 @@ class GameVideoController extends Controller
 	}
 
 	/**
-	 * Displays a particular model.
-	 * @param integer $id the ID of the model to be displayed
-	 */
-	/*
-	  public function actionView($id)
-	  {
-	  $this->render('view',array(
-	  'model'=>$this->loadModel($id),
-	  ));
-	  }
-	 */
-
-	/**
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
@@ -78,9 +65,9 @@ class GameVideoController extends Controller
 	 * If update is successful, the browser will be redirected to the 'view' page.
 	 * @param integer $id the ID of the model to be updated
 	 */
-	public function actionUpdate($gameId)
+	public function actionUpdate($id)
 	{
-		$model = $this->loadModel($gameId);
+		$model = $this->loadModel($id);
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -102,12 +89,12 @@ class GameVideoController extends Controller
 	 * If deletion is successful, the browser will be redirected to the 'index' page.
 	 * @param integer $id the ID of the model to be deleted
 	 */
-	public function actionDelete($gameId)
+	public function actionDelete($id, $gameId)
 	{
 		if (Yii::app()->request->isPostRequest)
 		{
 			// we only allow deletion via POST request
-			$this->loadModel($gameId)->delete();
+			$this->loadModel($id)->delete();
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if (!isset($_GET['ajax']))
@@ -118,26 +105,13 @@ class GameVideoController extends Controller
 	}
 
 	/**
-	 * Lists all models.
-	 */
-	/*
-	  public function actionIndex()
-	  {
-	  $dataProvider = new CActiveDataProvider('GameVideo');
-	  $this->render('index', array(
-	  'dataProvider' => $dataProvider,
-	  ));
-	  }
-	 */
-
-	/**
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
 	 * @param integer the ID of the model to be loaded
 	 */
 	public function loadModel($id)
 	{
-		$model = GameVideo::model()->findByAttributes(array('game_id' => $id));
+		$model = GameVideo::model()->findByAttributes(array('video_id' => $id));
 		if ($model === null)
 			throw new CHttpException(404, 'The requested page does not exist.');
 		return $model;
