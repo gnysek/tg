@@ -21,6 +21,7 @@ $this->menu = array(
 	<tr>
 		<th>Id.</th>
 		<th>Nazwa.</th>
+		<th>Gry</th>
 		<th>Opcje.</th>
 	</tr>
 <?php foreach ($model as $data): ?>
@@ -33,6 +34,7 @@ $this->menu = array(
 		<?php endif; ?>
 		<?php echo $data->name; ?>
 	</td>
+	<td><?php echo CHtml::link('Zobacz &raquo;', array('game/pubGames', 'pubId' => $data->publisher_id)); ?></td>
 	<td><?php echo CHtml::link('Szczegóły &raquo;',array('/publisher/view/','id'=>$data->publisher_id)); ?></td>
 	</tr>
 <?php endforeach; ?>

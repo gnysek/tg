@@ -10,6 +10,34 @@ class GameController extends Controller
 		$model = Game::model()->findAll();
 		$this->render('index',array('model'=>$model));
 	}
+	
+	public function actionUserGames($userId)
+	{
+		$user = User::model()->findByPk($userId);
+		
+		$model = Game::model()->findAll(array(
+			'select' => '*',
+			'condition' => 'user_id=:userId',
+			'params' => array(':userId' => $userId),
+			'order' => 'game_id ASC'
+		));
+		
+		$this->render('usergame', array('model' => $model, 'user_name' => $user->name));
+	}
+
+	public function actionPubGames($pubId)
+	{
+		$pub = Publisher::model()->findByPk($pubId);
+		
+		$model = Game::model()->findAll(array(
+			'select' => '*',
+			'condition' => 'publisher_id=:pubId',
+			'params' => array(':pubId' => $pubId),
+			'order' => 'game_id ASC'
+		));
+		
+		$this->render('pubgame', array('model' => $model, 'pub_name' => $pub->name));
+	}
 
 	public function actionAdd()
 	{

@@ -29,6 +29,7 @@ $i = 1;
 		<th>Id</th>
 		<th>Nick</th>
 		<th>Pozycja</th>
+		<th>Gry</th>
 		<?php if ($model->isPublisherAdmin()): ?>
 			<th>Opcje</th>
 		<?php endif; ?>
@@ -48,6 +49,9 @@ $i = 1;
 			<td>
 				<?php echo $member->publisher_staff_role; ?>
 			</td>
+			<td>
+				<?php echo CHtml::link('Zobacz &raquo;', array('game/userGames', 'userId' => $member->user_id)); ?>
+			</td>
 			<?php if ($model->isPublisherAdmin()): ?>
 				<td>
 					<?php if ($model->user_id != $member->user->user_id): /* zalozyciela nie mozna skasowac! */ ?>
@@ -61,4 +65,3 @@ $i = 1;
 		</tr>
 	<?php endforeach; ?>
 </table>
-
