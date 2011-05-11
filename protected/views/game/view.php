@@ -5,8 +5,7 @@ $this->breadcrumbs = array(
 	$model->name,
 );
 
-if ($model->publisher->isPublisherAdmin())
-{
+if ($model->publisher->isPublisherAdmin()){
 	$this->menu = array(
 		array('label' => "Dodaj screen'a", 'url' => array('/gameImage/create', 'gameId' => $model->game_id)),
 		array('label' => "Dodaj video", 'url' => array('/gameVideo/create', 'gameId' => $model->game_id)),
@@ -16,13 +15,14 @@ if ($model->publisher->isPublisherAdmin())
 	if ($model->bugtracker_enabled == 1)
 		array_push($this->menu, array('label' => "Zobacz swoje bugi", 'url' => array('/gameBugtracker/view', 'id' => $model->game_id)));
 } else {
-	if ($model->bugtracker_enabled == 1)
-	{
+	if ($model->bugtracker_enabled == 1){
 		$this->menu = array(
-			array('label' => "Add bug", 'url' => array('/gameBugtracker/create', 'gameId' => $model->game_id)),
+			array('label' => "Dodaj buga", 'url' => array('/gameBugtracker/create', 'gameId' => $model->game_id)),
 			array('label' => "Zobacz bugi gry", 'url' => array('/gameBugtracker/view', 'id' => $model->game_id))
 		);
 	}
+	array_push($this->menu, array('label' => "Dodaj do ulubionych", 'url' => array('/gameFavs/add', 'gameId' => $model->game_id)));
+	
 }
 ?>
 <h1><?php echo $model->name ?></h1>
@@ -42,7 +42,7 @@ if ($model->publisher->isPublisherAdmin())
 			<?php
 				echo CHtml::link('Edytuj', array(
 					'/gameImage/update',
-					'id'=>$image->image_id,
+					//'id'=>$image->image_id,
 					'gameId' => $image->game_id)
 				);
 				
@@ -51,7 +51,7 @@ if ($model->publisher->isPublisherAdmin())
 				echo CHtml::link('Usuń', '#', array(
 						'submit' => array(
 							'/gameImage/delete',
-							'id' => $image->image_id,
+							//'id' => $image->image_id,
 							'gameId' => $image->game_id
 						),
 						'confirm' => "Czy napewno chcesz to zrobić ?"
