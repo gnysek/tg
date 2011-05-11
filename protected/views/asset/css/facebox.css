@@ -1,0 +1,125 @@
+#facebox .b {
+  background:url(b.png);
+}
+
+#facebox .tl {
+  background:url(tl.png);
+}
+
+#facebox .tr {
+  background:url(tr.png);
+}
+
+#facebox .bl {
+  background:url(bl.png);
+}
+
+#facebox .br {
+  background:url(br.png);
+}
+
+#facebox {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  text-align: left;
+}
+
+#facebox .popup {
+  position: relative;
+}
+
+#facebox table {
+  border-collapse: collapse;
+}
+
+#facebox td {
+  /*border-bottom: 0;*/
+  /*padding: 0;*/
+}
+
+#facebox .body {
+  /*padding: 10px;*/
+  padding: 0;
+  background: #fff;
+  width: 370px;
+  -moz-border-radius: 4px;
+}
+
+#facebox .loading {
+	text-align: center;
+	background-image: none;
+	padding: 0px;
+	border: none;
+	background-color: white;
+	-moz-border-radius: 0;
+	-webkit-border-radius: 0;
+	padding: 40px;
+}
+
+#facebox .image {
+  text-align: center;
+}
+/*#facebox .close img{
+	margin-top: 1px;
+}*/
+#facebox .x-title{
+	float: left;
+	margin-top: 3px;
+	margin-left: 5px;
+	font-size: 17px;
+	font-weight: bold;
+	color: #4f4f4f;
+}
+
+#facebox img {
+  border: 0;
+  /*margin: 0;*/
+}
+
+#facebox .footer {
+  -moz-border-radius: 4px 4px 0 0;
+  border-bottom: 1px solid #DDDDDD;
+  background-color: #FFD11F;
+  background-image: url('facebox-bg.gif');
+  background-repeat: no-repeat;
+  background-position: 90% 0;
+  /*padding-top: 5px;*/
+  padding: 5px 5px 7px 5px;
+  /*margin-bottom: 5px;*/
+  text-align: right;
+}
+#facebox .content{
+	padding: 5px;
+	-moz-border-radius: 0 0 4px 4px;
+}
+
+#facebox .tl, #facebox .tr, #facebox .bl, #facebox .br {
+  height: 10px;
+  width: 10px;
+  overflow: hidden;
+  padding: 0;
+}
+
+#facebox_overlay {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  height:100%;
+  width:100%;
+}
+
+.facebox_hide {
+  z-index:-100;
+}
+
+.facebox_overlayBG {
+  background-color: #000;
+  z-index: 99;
+}
+
+* html #facebox_overlay { /* ie6 hack */
+  position: absolute;
+  height: expression(document.body.scrollHeight > document.body.offsetHeight ? document.body.scrollHeight : document.body.offsetHeight + 'px');
+}

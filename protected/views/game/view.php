@@ -1,3 +1,9 @@
+<script type="text/javascript">
+	var host_url = 'http://localhost/tg/';
+	$().ready(function(){
+		$('a[rel*=facebox]').facebox();
+	});
+</script>
 <?php
 /* @var $model Game */
 $this->breadcrumbs = array(
@@ -36,15 +42,15 @@ if ($model->publisher->isPublisherAdmin())
 	<h2>Screens</h2>
 	<?php foreach ($model->gameImage as $image) { ?>		
 	<div>
-		<?php echo CHtml::link(CHtml::image($image->thumb_src), $image->src, array('target'=>'_blank')); ?>
+		<?php echo CHtml::link(CHtml::image($image->thumb_src), $image->src, array('target'=>'_blank', 'rel' => 'facebox')); ?>
 		<?php if ($model->publisher->isPublisherAdmin()) { ?>
 		<p>
 			<?php
 				echo CHtml::link('Edytuj', array(
 					'/gameImage/update',
 					'id'=>$image->image_id,
-					'gameId' => $image->game_id)
-				);
+					'gameId' => $image->game_id,
+				));
 				
 				echo " | ";
 				
