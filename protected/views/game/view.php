@@ -16,10 +16,8 @@ if ($model->publisher->isPublisherAdmin()){
 		array_push($this->menu, array('label' => "Zobacz swoje bugi", 'url' => array('/gameBugtracker/view', 'id' => $model->game_id)));
 } else {
 	if ($model->bugtracker_enabled == 1){
-		$this->menu = array(
-			array('label' => "Dodaj buga", 'url' => array('/gameBugtracker/create', 'gameId' => $model->game_id)),
-			array('label' => "Zobacz bugi gry", 'url' => array('/gameBugtracker/view', 'id' => $model->game_id))
-		);
+			array_push($this->menu, array('label' => "Dodaj buga", 'url' => array('/gameBugtracker/create', 'gameId' => $model->game_id)));
+			array_push($this->menu, array('label' => "Zobacz bugi gry", 'url' => array('/gameBugtracker/view', 'id' => $model->game_id)));
 	}
 	array_push($this->menu, array('label' => "Dodaj do ulubionych", 'url' => array('/gameFavs/add', 'gameId' => $model->game_id)));
 	

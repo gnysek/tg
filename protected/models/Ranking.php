@@ -72,12 +72,12 @@ class Ranking extends CActiveRecord
 	{
 		return array(
 			'ranking_id' => 'Ranking',
-			'ranking_creator' => 'Ranking Creator',
-			'start_date' => 'Start Date',
-			'end_date' => 'End Date',
-			'name' => 'Name',
-			'rules' => 'Rules',
-			'winner' => 'Winner',
+			'ranking_creator' => 'Twórca rankingu',
+			'start_date' => 'Data rozpoczęcia',
+			'end_date' => 'Data zakończenia',
+			'name' => 'Nazwa',
+			'rules' => 'Zasady',
+			'winner' => 'Zwycięsca',
 		);
 	}
 

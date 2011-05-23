@@ -114,6 +114,28 @@ class Update
 			$model->value = 9;
 			$model->save();
 		}
+		
+		if ($model->value == 9) {
+				$connection = Yii::app()->db;
+				$command = $connection->createCommand("ALTER TABLE `ranking_vote` ADD `ranking_id` INT(10) NOT NULL;");
+				$command->execute();
+				$model->value = 10;
+				$model->save();
+		}
+		if ($model->value == 10) {
+			$connection = Yii::app()->db;
+			$command = $connection->createCommand("ALTER TABLE `ranking_game` ADD `ranking_id` INT(10) NOT NULL;");
+			$command->execute();
+			$model->value = 11;
+			$model->save();
+		}
+	if ($model->value == 11) {
+			$connection = Yii::app()->db;
+			$command = $connection->createCommand("ALTER TABLE `ranking_game` CHANGE `score` `score` DECIMAL( 3, 1 ) NOT NULL;");
+			$command->execute();
+			$model->value = 12;
+			$model->save();
+		}
 	}
 
 }
