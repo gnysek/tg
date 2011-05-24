@@ -27,7 +27,7 @@ if ($model->publisher->isPublisherAdmin()){
 
 <div style="float: right;">
 	<?php
-		if(GameController::voteEnable($model->game_id)) {
+		if($model->voteEnable()) {
 			if (!Yii::app()->user->isGuest && GameController::userVote($model->game_id)) {
 				$this->widget('CStarRating', array(
 					'name' => 'GameVote',

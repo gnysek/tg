@@ -12,12 +12,21 @@
 
 <?php 
     $list = CHtml::listData($game, 'game_id', 'name');    
- 	echo CHtml::dropDownList('game', $game, $list);
+	if(count($list) > 0) {
+		echo CHtml::dropDownList('game', $game, $list);
 ?>
 </div>
 <div class="row buttons">
-		<?php echo CHtml::submitButton('Dodaj'); ?>
-	</div>
-<?php $this->endWidget(); ?>
+	<?php echo CHtml::submitButton('Dodaj'); ?>
+</div>
+<?php } else { ?>
+<div class="row">
+	Wybrałeś wszystkie możliwe gry
+</div>
+<div class="row buttons">
+	<?php echo CHtml::link('Wróć', array('ranking/view', 'id' => $ranking_id)); ?>	
+</div>
+<?php }
+$this->endWidget(); ?>
 
 </div><!-- form -->

@@ -122,6 +122,7 @@ class Update
 				$model->value = 10;
 				$model->save();
 		}
+		
 		if ($model->value == 10) {
 			$connection = Yii::app()->db;
 			$command = $connection->createCommand("ALTER TABLE `ranking_game` ADD `ranking_id` INT(10) NOT NULL;");
@@ -129,11 +130,24 @@ class Update
 			$model->value = 11;
 			$model->save();
 		}
-	if ($model->value == 11) {
+		
+		if ($model->value == 11) {
 			$connection = Yii::app()->db;
 			$command = $connection->createCommand("ALTER TABLE `ranking_game` CHANGE `score` `score` DECIMAL( 3, 1 ) NOT NULL;");
 			$command->execute();
 			$model->value = 12;
+			$model->save();
+		}
+		
+		if ($model->value == 12) {
+			$connection = Yii::app()->db;
+			$command = $connection->createCommand("ALTER TABLE `ranking_vote` ADD INDEX ( `entry_id` );");
+			$command->execute();
+			$command = $connection->createCommand("ALTER TABLE `ranking_vote` DROP PRIMARY KEY;");
+			$command->execute();
+			$command = $connection->createCommand("ALTER TABLE `ranking_vote` ADD `vote_id` INT( 10 ) NOT NULL AUTO_INCREMENT PRIMARY KEY FIRST;");
+			$command->execute();
+			$model->value = 13;
 			$model->save();
 		}
 	}

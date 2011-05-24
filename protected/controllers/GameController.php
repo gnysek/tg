@@ -99,12 +99,6 @@ class GameController extends Controller
 		$this->render('view', array('model' => $model));
 	}
 	
-	public static function voteEnable($gameId) {
-		$model = Game::model()->findByPk($gameId);
-		
-		return $model->voting_enabled == 1;
-	}
-
 	public function actionVote() //AJAX
 	{
 		$vote = isset($_POST['vote']) ? $_POST['vote'] : 0;

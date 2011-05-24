@@ -36,6 +36,10 @@
  */
 class Game extends CActiveRecord
 {
+	
+	public function voteEnable() {
+		return $this->voting_enabled == 1;
+	}
 
 	/**
 	 * Returns the static model of the specified AR class.

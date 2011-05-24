@@ -142,41 +142,32 @@ class RankingController extends Controller
 	
 	public function actionAddGame($user,$ranking)
 	{
-		$game = Game::model()->findAll(array(
-			'select' => '*',
-			'condition' => 'user_id=:userID',
-			'params' => array(':userID' => $user )
-		));
+		$ranking_sql = "select g.game_id from game g JOIN ranking_game r ON g.game_id=r.game_id WHERE ranking_id=$ranking";
+		$main_sql = "select * from game WHERE user_id=$user AND game_id NOT IN ($ranking_sql)";
+		
+		$game = Game::model()->findAllBySql($main_sql);
 		
 		if(isset($_POST['game']))
 		{
 			$game = $_POST['game'];
-			$dodano[] = array();
-			$dodano[] = RankingGame::model()->findAllByAttributes(array('game_id'=> $game, 'entry_id'=>$ranking));
+			$dodano = RankingGame::model()->findByAttributes(array('game_id'=> $game, 'ranking_id'=>$ranking));
 
-			if(empty($dodano[1])){
+			if(empty($dodano)) {
+				 
 				$ranking_game = new RankingGame();
 				$ranking_game->game_id = $_POST['game'];
 				$ranking_game->ranking_id = $ranking;
 				$ranking_game->votes = 0;
 				$ranking_game->score = 0;
-				if($ranking_game->save()){
-				/*	$ranking_vote = new RankingVote();
-					$ranking_vote->user_id = $user;
-					$ranking_vote->score = 0;
-					$ranking_game->ranking_id = $ranking;
-					$ranking_vote->entry_id = RankingGame::model()->findAllByPk($pk)
-					if($ranking_vote->save()){ */
-						$this->redirect(array('view','id'=>$ranking));	
-				}
+				
+				if($ranking_game->save())
+					$this->redirect(array('view','id'=>$ranking));	
 			} else {
-				$this->render('addGame', 
-				array('game' => $game));
+				$this->render('addGame', array('game' => $game));
 			}
 			
 		}
-		$this->render('addGame', 
-			array('game' => $game));
+		$this->render('addGame', array('game' => $game, 'ranking_id' => $ranking));
 	}
 
 	/**
@@ -189,11 +180,11 @@ class RankingController extends Controller
 			array('model' => $model));
 	}
 	
-	public static function userVote($rankingId)
+	public static function userVote($entryId)
 	{
 		$model = RankingVote::model()->findByAttributes(array(
 				'user_id' => Yii::app()->user->getId(),
-				'ranking_id' => $rankingId
+				'entry_id' => $entryId
 			)
 		);
 		
@@ -209,27 +200,22 @@ class RankingController extends Controller
 		$ranking_id = $_POST['ranking_id'];
 		
 		// Save rate
-		$ranking_vote = new RankingVote;
+		$ranking_vote = new RankingVote();
 		$ranking_vote->entry_id = $entry_id;
 		$ranking_vote->user_id = $id;
 		$ranking_vote->score = $vote;
 		$ranking_vote->ranking_id = $ranking_id;
+		$ranking_vote->save();
 		
 		// Change game score
-		
 		$ranking = RankingGame::model()->findByAttributes(array(
 				'entry_id' => $entry_id,
 				'game_id' => $game_id
 			));
-			$ranking_vote->save();
+		
 		$votes = ($ranking->score * $ranking->votes) + $vote;
 		$ranking->votes++;
 		$ranking->score = $votes / $ranking->votes;
-		$ranking->game_id = $game_id;
-		$ranking->ranking_id = $ranking_id;
-		
-		
-		
 		
 		$ranking->update();
 		$ranking->refresh();
