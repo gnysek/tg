@@ -2,7 +2,7 @@
 <?php /* @var $gra Game */ $i = 0; ?>
 	<?php foreach ($game as $gra) { ?>
 	<tr>
-		<td>
+		<td style="width: 60%;">
 			<h2>
 				<?php
 					$name = Game::model()->find(array(
@@ -55,3 +55,6 @@
 	</tr>
 	<?php } ?>
 </table>
+<div>
+	<?php $this->widget('CLinkPager', array('pages' => $pages)); ?>
+</div>

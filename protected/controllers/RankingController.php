@@ -25,12 +25,19 @@ class RankingController extends Controller
 	public function actionView($id)
 	{
 		$model = $this->loadModel($id);
-		$game = RankingGame::model()->findAll(array(
-					'select' => '*',
-					'condition' => 'ranking_id=:rankingID',
-					'params' => array(':rankingID' => $model->ranking_id),
-					'order'=>'score desc'));
-	
+		
+		$criteria = new CDbCriteria();
+		$criteria->select = '*';
+		$criteria->condition = 'ranking_id=:rankingID';
+		$criteria->params = array(':rankingID' => $model->ranking_id);
+		$criteria->order = 'score desc';
+		
+		$count = RankingGame::model()->count($criteria);		
+		$pages = new CPagination($count);
+		$pages->pageSize = 10;
+		$pages->applyLimit($criteria);
+		
+		$game = RankingGame::model()->findAll($criteria);
 		
 		$creator = User::model()->find(array(
 			'select' => 'name',
@@ -38,10 +45,11 @@ class RankingController extends Controller
 			'params' => array(':userID' => $model->ranking_creator ),
 		));
 		
-		$this->render('view',array(
-			'model'=> $model,
+		$this->render('view', array(
+			'model' => $model,
 			'creator' => $creator,
 			'game' => $game,
+			'pages' => $pages
 		));
 	}
 

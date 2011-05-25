@@ -26,6 +26,6 @@ $this->menu=array(
 
 Gry biorące udział w rankingu:<br/>
 
-<?php echo $this->renderPartial('gameView', array('game'=>$game, 'model'=>$model)); ?>
+<?php echo $this->renderPartial('gameView', array('game'=>$game, 'model'=>$model, 'pages' => $pages)); ?>
 
 
