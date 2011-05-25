@@ -110,12 +110,42 @@ class GameController extends Controller
 		$this->registerScript();
 		$this->render('view', array('model' => $model));
 	}
-
-	public function actionVote()
+	
+	public function actionVote() //AJAX
 	{
-		$this->render('vote');
+		$vote = isset($_POST['vote']) ? $_POST['vote'] : 0;
+		$game_id = $_POST['game'];
+		$id = Yii::app()->user->getId();
+		
+		// Save rate
+		$game_vote = new GameVote();
+		$game_vote->game_id = $game_id;
+		$game_vote->user_id = $id;
+		$game_vote->score = $vote;
+		
+		// Change game score
+		$game = $this->loadModel($game_id);
+		$votes = ($game->score * $game->votes) + $vote;
+		$game->votes++;
+		$game->score = $votes / $game->votes;
+		
+		$game_vote->save();
+		$game->save();
+		$game->refresh();
+		
+		echo "Twoja ocena: <strong>{$vote}</strong>, Wynik: <strong>{$game->score}</strong>";
 	}
-
+	
+	public static function userVote($gameId)
+	{
+		$model = GameVote::model()->findByAttributes(array(
+				'user_id' => Yii::app()->user->getId(),
+				'game_id' => $gameId
+			)
+		);
+		
+		return $model === null;
+	}
 	
 	public function loadModel($id)
 	{

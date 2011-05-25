@@ -42,7 +42,7 @@
 								array('label' => 'Forum', 'url' => array('/forum')),
 								array('label' => 'Gry', 'url' => array('/game')),
 								array('label' => 'Wydawcy', 'url' => array('/publisher')),
-								//array('label' => 'Rankingi', 'url' => array('/ranking')),
+								array('label' => 'Rankingi', 'url' => array('/ranking')),
 								//array('label' => 'About', 'url' => array('/site/page')),
 								//array('label' => 'Kontakt', 'url' => array('/site/contact')),
 								array('label' => 'Admin', 'url' => array('/admin'), 'visible' => Yii::app()->user->admin),

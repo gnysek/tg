@@ -4,6 +4,7 @@
  * This is the model class for table "game_vote".
  *
  * The followings are the available columns in table 'game_vote':
+ * @property integer $vote_id
  * @property integer $game_id
  * @property integer $user_id
  * @property integer $score
@@ -43,7 +44,7 @@ class GameVote extends CActiveRecord
 			array('game_id, user_id, score', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('game_id, user_id, score', 'safe', 'on'=>'search'),
+			array('vote_id, game_id, user_id, score', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -66,6 +67,7 @@ class GameVote extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
+			'vote_id' => 'Vote',
 			'game_id' => 'Game',
 			'user_id' => 'User',
 			'score' => 'Score',
@@ -83,6 +85,7 @@ class GameVote extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
+		$criteria->compare('vote_id',$this->vote_id);
 		$criteria->compare('game_id',$this->game_id);
 		$criteria->compare('user_id',$this->user_id);
 		$criteria->compare('score',$this->score);
