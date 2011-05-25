@@ -142,7 +142,7 @@ class RankingController extends Controller
 	
 	public function actionAddGame($user,$ranking)
 	{
-		$ranking_sql = "select g.game_id from game g JOIN ranking_game r ON g.game_id=r.game_id WHERE ranking_id=$ranking";
+		$ranking_sql = "select game_id from ranking_game WHERE ranking_id=$ranking";
 		$main_sql = "select * from game WHERE user_id=$user AND game_id NOT IN ($ranking_sql)";
 		
 		$game = Game::model()->findAllBySql($main_sql);
