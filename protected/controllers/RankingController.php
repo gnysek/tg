@@ -61,17 +61,16 @@ class RankingController extends Controller
 			'params' => array(':rankingId' => $ranking)));
 		
 		
-		$user_winner = Game::model()->find(array(
-			'select' =>'user_id', 
-			'condition' => 'game_id=:gameId',
-			'params' => array(':gameId' => $winner->game_id)));
+		/* @var $user_winner Game */
+		$user_winner = Game::model()->findByPk($winner->game_id);
 		
 		$model = $this->loadModel($ranking);
-		$model->winner = $user_winner->user_id;
+		$model->winner = $user_winner->publisher->user_id;
 		$model->update('winner');
 		
 		$this->render('winner',array(
-			'winner' => $model
+			'winner' => $model,
+			'game' => $user_winner,
 		));
 	}
 	

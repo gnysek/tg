@@ -11,6 +11,17 @@ class GameController extends Controller
 		$this->render('index',array('model'=>$model));
 	}
 	
+	public function registerScript() {
+		$basePath=Yii::getPathOfAlias('application.views.asset');
+		$baseUrl=Yii::app()->getAssetManager()->publish($basePath);
+		/* @var $cs CClientScript */
+		$cs = Yii::app()->getClientScript();
+		$cs->registerCoreScript('jquery');
+		$cs->registerCssFile($baseUrl.'/css/facebox.css');
+		$cs->registerScript(__CLASS__ . '#gameviewhost', "var host_url = 'http://localhost/tg/';");
+		$cs->registerScriptFile($baseUrl.'/js/facebox.js');
+	}
+	
 	public function actionUserGames($userId)
 	{
 		$user = User::model()->findByPk($userId);
@@ -96,6 +107,7 @@ class GameController extends Controller
 	public function actionView($id)
 	{
 		$model = Game::model()->findByPk((int)$id);
+		$this->registerScript();
 		$this->render('view', array('model' => $model));
 	}
 	

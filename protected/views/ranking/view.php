@@ -21,8 +21,8 @@ $this->menu=array(
 <h1><?php echo $model->name; ?></h1>
 <b>Twórca rankingu: <?php echo $creator->name;?></b>
 <p><b>Zasady: <?php echo $model->rules;?></b></p>
-<p>Data rozpoczęcia rankingu: <?php echo $model->start_date;?></p>
-<p>Data zakończenia rankingu: <?php echo $model->end_date;?></p>
+<p>Data rozpoczęcia rankingu: <?php echo date('d-m-Y', $model->start_date);?></p>
+<p>Data zakończenia rankingu: <?php echo date('d-m-Y', $model->end_date);?></p>
 
 Gry biorące udział w rankingu:<br/>
 
