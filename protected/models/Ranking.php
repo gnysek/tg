@@ -104,4 +104,11 @@ class Ranking extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+	
+	protected function beforeValidate() {
+		$this->start_date = strtotime($this->start_date);
+		$this->end_date = strtotime($this->end_date);
+		
+		return parent::beforeValidate();
+	}
 }
