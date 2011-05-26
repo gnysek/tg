@@ -1,6 +1,7 @@
 <?php
 $this->menu = array(
 	array('label' => 'Dodaj swoją grę', 'url' => array('add')),
+	array('label' => 'Twoje ulubione gry', 'url' => array('/gameFavs/view', 'id' => Yii::app()->user->id)),
 );
 ?>
 
