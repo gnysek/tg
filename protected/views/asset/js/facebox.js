@@ -19,8 +19,8 @@
       opacity      : 0.5,
       overlay      : true,
 	  tytul			: '-',
-      loadingImage : host_url + 'skin/facebox/loading.gif',
-      closeImage   : host_url + 'skin/facebox/closelabel.png',
+      loadingImage : host_url + 'images/loading.gif',
+      closeImage   : host_url + 'images/closelabel.png',
       imageTypes   : [ 'png', 'jpg', 'jpeg', 'gif' ],
       faceboxHtml  : '\
     <div id="facebox" style="display:none;"> \

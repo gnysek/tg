@@ -3,6 +3,7 @@
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'game-image-form',
 	'enableAjaxValidation'=>false,
+	'htmlOptions'=>array('enctype' => 'multipart/form-data'),
 )); ?>
 
 	<p class="note">Pola oznaczone <span class="required">*</span> są wymagane.</p>
@@ -17,14 +18,8 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'src'); ?>
-		<?php echo $form->textField($model,'src',array('size'=>60,'maxlength'=>255)); ?>
+		<?php echo Chtml::activeFileField($model,'src',array('size'=>60,'maxlength'=>255)); ?>
 		<?php echo $form->error($model,'src'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'thumb_src'); ?>
-		<?php echo $form->textField($model,'thumb_src',array('size'=>60,'maxlength'=>255)); ?>
-		<?php echo $form->error($model,'thumb_src'); ?>
 	</div>
 
 	<div class="row buttons">

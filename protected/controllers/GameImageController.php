@@ -51,6 +51,9 @@ class GameImageController extends Controller
 			$model->attributes = $_POST['GameImage'];
 			$model->votes = 0;
 			$model->score = 0;
+			
+			$this->uploadImage($model, $model->src, $model->game_id);
+			
 			if ($model->validate() && $model->save())
 				$this->redirect(array('/game/view', 'id' => $model->game_id));
 		}
@@ -75,6 +78,7 @@ class GameImageController extends Controller
 		if (isset($_POST['GameImage']))
 		{
 			$model->attributes = $_POST['GameImage'];
+			$this->uploadImage($model, $model->src, $model->game_id);
 			if ($model->validate() && $model->save())
 				$this->redirect(array('/game/view', 'id' => $model->game_id));
 		}
@@ -128,6 +132,44 @@ class GameImageController extends Controller
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
 		}
+	}
+	
+	private function uploadImage($model,$oldVal,$gameId)
+	{
+		/* @var $model GameImage */
+		if ($model->validate()) {
+			$model->src = CUploadedFile::getInstance($model, 'src');
+
+			if (!empty($model->src)) {
+				//$md = md5(time()) . end(explode($model->src,'.',2));
+				$dir = Yii::getPathOfAlias('webroot') . "/upload/{$gameId}/";
+				
+				$filename = $dir . $model->src;
+
+				// utworz katalog
+				if (!is_dir($dir))
+					@mkdir($dir, 0777);
+
+				// zapisz nowy screen
+				$model->src->saveAs($filename);
+
+				// usun stary screen
+				if (!empty($oldVal) && file_exists($dir . $oldVal)) {
+					@unlink($dir . $oldVal);
+					@unlink($dir . 'thumb_' . $oldVal);
+				}
+				@copy($filename, $dir . 'thumb_' . $model->src);
+				$image = Yii::app()->image->load($dir . 'thumb_' . $model->src);
+				$image->resize(150, 113)->quality(75)->sharpen(20);
+				$image->save();
+				$model->thumb_src = 'thumb_' . $model->src;
+			} else {
+				// przywroc poprzedni screen, gdy nie zapisujemy nowego
+				$model->src = $oldVal;
+			}
+			return true;
+		}
+		return false;
 	}
 
 }

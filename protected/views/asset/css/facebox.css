@@ -1,3 +1,7 @@
+#facebox td,th {
+	padding: 0px;
+}
+
 #facebox .b {
   background:url(b.png);
 }

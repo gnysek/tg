@@ -1,3 +1,9 @@
+<script type="text/javascript">
+	var host_url = 'http://localhost/tg/';
+	$().ready(function(){
+		$('a[rel*=facebox]').facebox();
+	});
+</script>
 <?php
 /* @var $model Game */
 $this->breadcrumbs = array(
@@ -60,36 +66,9 @@ if ($model->publisher->isPublisherAdmin()){
 	Wydana przez: <b><?php echo $model->publisher->name ?></b><br/>
 	Rozmiar: <b><?php echo $model->size ?> MB</b><br/>
 <div id="screens">
-	<?php if (count($model->gameImage) > 0) { ?>
-	<h2>Screens</h2>
-	<?php foreach ($model->gameImage as $image) { ?>		
-	<div>
-		<?php echo CHtml::link(CHtml::image($image->thumb_src), $image->src, array('target'=>'_blank')); ?>
-		<?php if ($model->publisher->isPublisherAdmin()) { ?>
-		<p>
-			<?php
-				echo CHtml::link('Edytuj', array(
-					'/gameImage/update',
-					//'id'=>$image->image_id,
-					'gameId' => $image->game_id)
-				);
-				
-				echo " | ";
-				
-				echo CHtml::link('Usuń', '#', array(
-						'submit' => array(
-							'/gameImage/delete',
-							//'id' => $image->image_id,
-							'gameId' => $image->game_id
-						),
-						'confirm' => "Czy napewno chcesz to zrobić ?"
-					)
-				);
-			?>
-		</p>
-		<?php } ?>
-	</div>
-	<?php } } ?>
+	<?php if (count($model->gameImage) > 0): ?>
+	<?php echo $this->renderPartial('view_images',array('model' => $model)) ?>
+	<?php endif; ?>
 </div>
 <div id="videos">
 	<?php if (count($model->gameVideo) > 0) { ?>

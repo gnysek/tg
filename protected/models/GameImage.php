@@ -41,10 +41,11 @@ class GameImage extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('game_id, title, src, thumb_src, votes, score', 'required'),
+			array('game_id, title', 'required'),
 			array('game_id, votes', 'numerical', 'integerOnly'=>true),
 			array('title, src, thumb_src', 'length', 'max'=>255),
 			array('score', 'length', 'max'=>3),
+			array('src', 'file', 'types' => 'jpg, gif, png', 'allowEmpty' => true),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('game_id, title, src, thumb_src, votes, score', 'safe', 'on'=>'search'),
@@ -71,8 +72,8 @@ class GameImage extends CActiveRecord
 		return array(
 			'game_id' => 'Game Id',
 			'title' => 'Tytuł',
-			'src' => 'Adres obrazka',
-			'thumb_src' => 'Adres miniatury',
+			'src' => 'Grafika',
+			'thumb_src' => 'Miniatura',
 			'votes' => 'Głosy',
 			'score' => 'Wynik',
 		);

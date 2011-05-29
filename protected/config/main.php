@@ -17,6 +17,7 @@ return array(
 	'import'=>array(
 		'application.models.*',
 		'application.components.*',
+		'application.helpers.*',
 	),
 	
 	'defaultController' => 'Index',
@@ -34,6 +35,13 @@ return array(
 
 	// application components
 	'components'=>array(
+		'image' => array(
+			'class' => 'application.extensions.image.CImageComponent',
+			 // GD or ImageMagick
+			'driver' => 'GD',
+			 // ImageMagick setup path
+			'params' => array('directory' => '/opt/local/bin'),
+		),
 		'user'=>array(
 			'class'=>'WebUser',
 			// enable cookie-based authentication
