@@ -18,6 +18,8 @@ return array(
 		'application.models.*',
 		'application.components.*',
 	),
+	
+	'defaultController' => 'Index',
 
 	'modules'=>array(
 		// uncomment the following to enable the Gii tool
