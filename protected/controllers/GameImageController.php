@@ -74,11 +74,11 @@ class GameImageController extends Controller
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
-
+		$oldSrc = $model->src;
 		if (isset($_POST['GameImage']))
 		{
 			$model->attributes = $_POST['GameImage'];
-			$this->uploadImage($model, $model->src, $model->game_id);
+			$this->uploadImage($model, $oldSrc, $model->game_id);
 			if ($model->validate() && $model->save())
 				$this->redirect(array('/game/view', 'id' => $model->game_id));
 		}
@@ -149,20 +149,27 @@ class GameImageController extends Controller
 				// utworz katalog
 				if (!is_dir($dir))
 					@mkdir($dir, 0777);
-
-				// zapisz nowy screen
-				$model->src->saveAs($filename);
-
+				
 				// usun stary screen
 				if (!empty($oldVal) && file_exists($dir . $oldVal)) {
 					@unlink($dir . $oldVal);
 					@unlink($dir . 'thumb_' . $oldVal);
 				}
+
+				// zapisz nowy screen
+				$model->src->saveAs($filename);
+
 				@copy($filename, $dir . 'thumb_' . $model->src);
+				/* @var $image Image */
+				$image = Yii::app()->image->load($filename);
+				$image->resize(640, 480)->quality(75);
+				$image->save();
+				
 				$image = Yii::app()->image->load($dir . 'thumb_' . $model->src);
-				$image->resize(150, 113)->quality(75)->sharpen(20);
+				$image->resize(120, 90, 1)->quality(75)->sharpen(20);
 				$image->save();
 				$model->thumb_src = 'thumb_' . $model->src;
+				
 			} else {
 				// przywroc poprzedni screen, gdy nie zapisujemy nowego
 				$model->src = $oldVal;

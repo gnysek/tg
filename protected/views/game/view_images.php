@@ -1,4 +1,4 @@
-<h2>Screens</h2>
+<h2>Screeny</h2>
 <?php foreach ($model->gameImage as $image): ?>		
 	<div style="float: left; margin: 0 10px 10px 0;">
 		<?php
@@ -17,7 +17,7 @@
 			echo CHtml::link('Edytuj', array(
 				'/gameImage/update',
 				//'id'=>$image->image_id,
-				'id' => $image->game_id)
+				'id' => $image->image_id)
 			);
 
 			echo " | ";
@@ -25,8 +25,8 @@
 			echo CHtml::link('Usuń', '#', array(
 				'submit' => array(
 					'/gameImage/delete',
-					//'id' => $image->image_id,
-					'gameId' => $image->game_id
+					'id' => $image->image_id,
+//					'gameId' => $image->game_id
 				),
 				'confirm' => "Czy napewno chcesz to zrobić ?"
 					)

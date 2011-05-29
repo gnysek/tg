@@ -68,7 +68,7 @@ class GameVideoController extends Controller
 	public function actionUpdate($id)
 	{
 		$model = $this->loadModel($id);
-
+		$model->src = 'http://www.youtube.com/watch?v=' . $model->src;
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
@@ -102,6 +102,12 @@ class GameVideoController extends Controller
 		}
 		else
 			throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
+	}
+	
+	public function actionViewYoutube($id) {
+		$model = GameVideo::model()->findByPk($id);
+		
+		$this->renderPartial('view_embed_youtube',array('code' => $model->src));
 	}
 
 	/**

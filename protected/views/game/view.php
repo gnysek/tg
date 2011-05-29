@@ -75,7 +75,7 @@ if ($model->publisher->isPublisherAdmin()){
 	<h2>Videos</h2>
 	<?php foreach ($model->gameVideo as $video) { ?>
 	<div>
-		<?php echo CHtml::link(CHtml::image($video->preview_img), $video->src, array('target'=>'_blank')); ?>
+		<?php echo CHtml::link(CHtml::image($video->preview_img), array('gameVideo/viewYoutube','id'=>$video->video_id), array('target'=>'_blank', 'rel'=>'facebox', 'title'=>$video->title)); ?>
 		<?php if ($model->publisher->isPublisherAdmin()) { ?>
 		<p>
 			<?php

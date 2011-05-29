@@ -21,12 +21,6 @@
 		<?php echo $form->error($model,'src'); ?>
 	</div>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'preview_img'); ?>
-		<?php echo $form->textField($model,'preview_img',array('size'=>60,'maxlength'=>255)); ?>
-		<?php echo $form->error($model,'preview_img'); ?>
-	</div>
-
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Dodaj' : 'Zapisz'); ?>
 	</div>
