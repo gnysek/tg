@@ -70,7 +70,7 @@ class GameController extends Controller
 		$publishers = array();
 		/* @var $p Member */
 		foreach ($buffer as $p) {
-			$publishers[$p->member_id] = $p->publisher->name;
+			$publishers[$p->publisher_id] = $p->publisher->name;
 		}
 		$this->render('add', array('model' => $model, 'pub' => $publishers));
 	}

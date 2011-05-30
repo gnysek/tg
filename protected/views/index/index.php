@@ -23,6 +23,7 @@
 <div style="float: right;" class="span-14">
 	<h1>Newsroom</h1>
 	<?php $this->renderPartial('//news/index',array('model'=>$model)); ?>
+	<?php echo CHtml::link('Więcej &raquo;', array('/news')); ?>
 </div>
 
 <div class="clearfix"></div>
@@ -34,8 +35,8 @@
 		$('#coin-slider').coinslider({
 			width: 320,
 			height: 240,
-			spw: 3,
-			sph: 4,
+//			spw: 3,
+//			sph: 4,
 			sDelay: 10
 		});
 	});

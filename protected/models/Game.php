@@ -91,7 +91,7 @@ class Game extends CActiveRecord
 			'gameFavs' => array(self::HAS_MANY, 'GameFavs', 'game_id'),
 			'gameImage' => array(self::HAS_MANY, 'GameImage', 'game_id'),
 			'gameVideo' => array(self::HAS_MANY, 'GameVideo', 'game_id'),
-			'gameVote' => array(self::HAS_ONE, 'GameVote', 'game_id'),
+			'gameVote' => array(self::HAS_MANY, 'GameVote', 'game_id'),
 			'rankingGames' => array(self::HAS_MANY, 'RankingGame', 'game_id'),
 		);
 	}
@@ -175,13 +175,13 @@ class Game extends CActiveRecord
 		return $x[$this->type];
 	}
 
-	protected function beforeSave()
+	protected function beforeValidate()
 	{
 		if ($this->isNewRecord) {
 			$this->user_id = Yii::app()->user->id;
 		}
 
-		return parent::beforeSave();
+		return parent::beforeValidate();
 	}
 
 }

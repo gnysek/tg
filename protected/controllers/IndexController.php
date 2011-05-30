@@ -6,7 +6,7 @@ class IndexController extends Controller {
 		$this->registerScript();
 		/*SELECT * FROM game_image
 		 * WHERE image_id IN (SELECT MAX(image_id) FROM `game_image` GROUP BY game_id) ORDER BY image_id DESC*/
-		$model = ContentNews::model()->findAll();
+		$model = ContentNews::model()->findAll(array('order'=>'content_id DESC'));
 		
 
 		//$condition=Yii::app()->db->createInCondition(GameImage::model()->tableSchema, 'id', $values);
@@ -18,7 +18,7 @@ class IndexController extends Controller {
 		
 		$modelImg = GameImage::model()->findAll(array(
 			'select' => '*',
-			'condition' => 'image_id IN (SELECT MAX(image_id) FROM game_image GROUP BY game_id)',
+			'condition' => 'image_id IN (SELECT MAX(image_id) FROM game_image GROUP BY game_id) ORDER BY image_id DESC',
 		));
 		
 		$this->render('index', array('model' => $model, 'modelImg' => $modelImg));
