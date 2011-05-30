@@ -1,19 +1,28 @@
 <div style="width:320px; float: left;">
 	<div id="coin-slider">
-		<a href="#">
-			<?php echo CHtml::image('images/test1.jpg'); ?>
-			<span>test</span>
-		</a>
-		<a href="#">
-			<?php echo CHtml::image('images/test2.jpg'); ?>
-			<span>test2</span>
-		</a>
+		<?php foreach ($modelImg as $img): ?>
+			<a href="#">
+				<?php /* some kind of fucking magic... trzeba to potem zmienic, hardkoded na szybko ;) */
+					$src = '/upload/' . $img->game_id . '/glowna_' . $img->src;
+					if (!file_exists( wr() . $src)) {
+						copy( wr() . '/upload/' . $img->game_id . '/' . $img->src, wr() . $src);
+						$image = Yii::app()->image->load(wr() . $src);
+						$image->resize(320, 240, 1)->quality(75);
+						$image->save();
+					}
+				?>
+				
+				<?php echo CHtml::image( bu() . $src ); ?>
+				<span><?php echo $img->game->name ?></span>
+			</a>
+		<?php endforeach; ?>
 	</div>
-	
 </div>
+
 
 <div style="float: right;" class="span-14">
 	<h1>Newsroom</h1>
+	<?php $this->renderPartial('//news/index',array('model'=>$model)); ?>
 </div>
 
 <div class="clearfix"></div>
@@ -25,6 +34,8 @@
 		$('#coin-slider').coinslider({
 			width: 320,
 			height: 240,
+			spw: 3,
+			sph: 4,
 			sDelay: 10
 		});
 	});

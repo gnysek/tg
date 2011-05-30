@@ -4,7 +4,24 @@ class IndexController extends Controller {
 	
 	public function actionIndex() {
 		$this->registerScript();
-		$this->render('index');
+		/*SELECT * FROM game_image
+		 * WHERE image_id IN (SELECT MAX(image_id) FROM `game_image` GROUP BY game_id) ORDER BY image_id DESC*/
+		$model = ContentNews::model()->findAll();
+		
+
+		//$condition=Yii::app()->db->createInCondition(GameImage::model()->tableSchema, 'id', $values);
+//		$criteria = new CDbCriteria();
+//		$criteria->addCondition(array("image_id IN (SELECT MAX(image_id) FROM game_image GROUP BY game_id)"));
+//		$modelImg = new CActiveDataProvider('GameImage', array(
+//					'criteria' => $criteria,
+//				));
+		
+		$modelImg = GameImage::model()->findAll(array(
+			'select' => '*',
+			'condition' => 'image_id IN (SELECT MAX(image_id) FROM game_image GROUP BY game_id)',
+		));
+		
+		$this->render('index', array('model' => $model, 'modelImg' => $modelImg));
 	}
 	
 	public function registerScript() {

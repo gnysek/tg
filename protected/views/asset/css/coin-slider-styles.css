@@ -1,5 +1,7 @@
 .coin-slider { overflow: hidden; zoom: 1; position: relative; }
-.coin-slider a{ text-decoration: none; outline: none; border: none; }
+.coin-slider a{ text-decoration: none; outline: none; border: none;}
+.coin-slider a,.coin-slider a:visited, .coin-slider a:focus {color: white;}
+.coin-slider a:hover {color: #ccc;}
 
 .cs-buttons { font-size: 0px; padding: 10px; float: left; }
 .cs-buttons a { border-radius: 2px; margin-left: 5px; height: 10px; width: 10px; float: left; border: 1px solid #B8C4CF; color: #B8C4CF; text-indent: -1000px; }
