@@ -12,7 +12,7 @@
 
 <?php 
     $list = CHtml::listData($game, 'game_id', 'name');    
-	if(count($list) > 0) {
+	if(count($list) != 0) {
 		echo CHtml::dropDownList('game', $game, $list);
 ?>
 </div>

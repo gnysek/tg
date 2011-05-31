@@ -150,6 +150,13 @@ class Update
 			$model->value = 13;
 			$model->save();
 		}
+	if ($model->value == 13) {
+			$connection = Yii::app()->db;
+			$command = $connection->createCommand("ALTER TABLE `ranking` MODIFY `winner` INT (10) NULL;");
+			$command->execute();
+			$model->value = 14;
+			$model->save();
+		}
 	}
 
 }

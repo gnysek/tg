@@ -43,7 +43,7 @@ class Ranking extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('ranking_creator, start_date, end_date, name, rules, winner', 'required'),
+			array('ranking_creator, start_date, end_date, name, rules', 'required'),
 			array('ranking_creator, start_date, end_date, winner', 'numerical', 'integerOnly'=>true),
 			array('name', 'length', 'max'=>256),
 			// The following rule is used by search().

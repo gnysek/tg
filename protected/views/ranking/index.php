@@ -2,10 +2,11 @@
 $this->breadcrumbs=array(
 	'Ranking' => array('/ranking')
 );
-
-$this->menu=array(
-	array('label'=>'Stwórz ranking', 'url'=>array('create'))
-);
+if(!empty(Yii::app()->user->id)){
+	$this->menu=array(
+		array('label'=>'Stwórz ranking', 'url'=>array('create'))
+	);
+}
 ?>
 
 <h1>Rankingi</h1>
