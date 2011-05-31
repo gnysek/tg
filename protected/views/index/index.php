@@ -1,5 +1,11 @@
 <div style="width:320px; float: left;">
-	<div id="coin-slider">
+	<div class="prebar">
+		<div class="bar">
+			<div>Najnowsze screeny</div>
+		</div>
+	</div>
+	
+	<div id="coin-slider" class="black-border">
 		<?php foreach ($modelImg as $img): ?>
 			<a href="#">
 				<?php /* some kind of fucking magic... trzeba to potem zmienic, hardkoded na szybko ;) */
@@ -21,9 +27,13 @@
 
 
 <div style="float: right;" class="span-14">
-	<h1>Newsroom</h1>
+	<div class="prebar">
+		<div class="bar">
+			<div>Newsroom</div>
+		</div>
+	</div>
 	<?php $this->renderPartial('//news/index',array('model'=>$model)); ?>
-	<?php echo CHtml::link('Więcej &raquo;', array('/news')); ?>
+	<?php echo CHtml::link('Pełen newsroom &raquo;', array('/news')); ?>
 </div>
 
 <div class="clearfix"></div>

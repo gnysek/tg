@@ -46,3 +46,36 @@
 	width: 150px;
 	margin-right: 10px;
 }
+
+.prebar {
+    background-image: url("../images/bar.gif");
+    background-position: left top;
+    background-repeat: repeat-x;
+}
+.bar {
+    background-image: url("../images/bar-l.gif");
+    background-position: left top;
+    background-repeat: no-repeat;
+}
+.bar div {
+    background-image: url("../images/bar-r.gif");
+    background-position: right top;
+    background-repeat: no-repeat;
+    color: white;
+    font-family: "Myriad Pro","Trebuchet MS",Arial;
+    font-size: 16px;
+    font-weight: normal;
+    padding: 8px 10px 12px;
+    text-shadow: -1px -1px 1px #1F5C9F;
+}
+.bar a {
+    color: white;
+	text-decoration: none;
+}
+.bar a:hover {
+    text-decoration: underline;
+}
+
+.black-border{
+	border: 1px solid black;
+}

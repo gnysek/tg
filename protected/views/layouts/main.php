@@ -75,9 +75,9 @@
 			<div id="footer">
 				<div id="footer-c2">
 					<?php echo CHtml::link('Główna', array('/')); ?><br/>
-					<?php //echo CHtml::link('Aktualności', array('/news')); ?><br/>
-					<?php //echo CHtml::link('O nas', array('/site/page', 'view' => 'about')); ?><br/>
-					<?php //echo CHtml::link('Kontakt', array('/site/contact')); ?>
+					<?php echo CHtml::link('Aktualności', array('/news')); ?><br/>
+					<?php echo CHtml::link('O nas', array('/site/page', 'view' => 'about')); ?><br/>
+					<?php echo CHtml::link('Kontakt', array('/site/contact')); ?>
 				</div>
 				<div id="footer-c1">Copyright &copy; <?php echo date('Y'); ?></div>
 				<div class="clear"></div>
