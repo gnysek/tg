@@ -12,3 +12,6 @@ $this->menu = array(
 	<h2><?php echo ++$i; ?>.
 	<?php echo CHtml::link($gra->name, array('game/view', 'id' => $gra->game_id)); ?></h2>
 <?php endforeach; ?>
+<div>
+	<?php $this->widget('CLinkPager', array('pages' => $pages)); ?>
+</div>

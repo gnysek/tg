@@ -7,7 +7,8 @@
 						'upload/' . $model->game_id . '/' . $image->thumb_src,
 						$image->title,
 						array('style'=>'border: 1px solid black;')
-				), 'upload/' . $model->game_id . '/' . $image->src,
+				),
+				'upload/' . $model->game_id . '/' . $image->src,
 				array('target' => '_blank', 'rel' => 'facebox', 'title' => $image->title)
 		);
 		?>
@@ -16,21 +17,19 @@
 			<?php
 			echo CHtml::link('Edytuj', array(
 				'/gameImage/update',
-				//'id'=>$image->image_id,
 				'id' => $image->image_id)
 			);
 
 			echo " | ";
 
 			echo CHtml::link('Usuń', '#', array(
-				'submit' => array(
-					'/gameImage/delete',
-					'id' => $image->image_id,
-//					'gameId' => $image->game_id
-				),
-				'confirm' => "Czy napewno chcesz to zrobić ?"
-					)
-			);
+					'submit' => array(
+						'/gameImage/delete',
+						'id' => $image->image_id,
+						'gameId' => $image->game_id
+					),
+					'confirm' => "Czy napewno chcesz to zrobić ?"
+				));
 			?>
 			</p>
 			<?php endif; ?>

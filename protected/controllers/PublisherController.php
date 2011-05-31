@@ -63,9 +63,22 @@ class PublisherController extends Controller
 		$this->render('delete');
 	}
 	
-	public function actionIndex() {
-		$publishers = Publisher::model()->findAll();
-		$this->render('index', array('model' => $publishers));
+	public function actionIndex()
+	{
+		$criteria = new CDbCriteria();
+		$criteria->select = '*';
+
+		$count = Publisher::model()->count($criteria);
+		$pages = new CPagination($count);
+		$pages->pageSize = 25;
+		$pages->applyLimit($criteria);
+
+		$publishers = Publisher::model()->findAll($criteria);
+
+		$this->render('index', array(
+			'model' => $publishers,
+			'pages' => $pages
+		));
 	}
 
 	public function actionMy()
