@@ -48,9 +48,12 @@ class RankingController extends Controller
 	
 		if(!empty($model->winner)){
 			$winner = RankingGame::model()->find(array(
-				'select' =>'* , max(score) AS score', 
+				'select' =>'*', 
 				'condition' => 'ranking_id=:rankingId',
-				'params' => array(':rankingId' => $model->ranking_id)));
+				'params' => array(':rankingId' => $model->ranking_id),
+				'order' => 'score desc',
+				'limit' => '1')
+			);
 			
 			$user_winner = Game::model()->findByPk($winner->game_id);
 		
@@ -72,16 +75,17 @@ class RankingController extends Controller
 	public function actionWinner($ranking)
 	{
 		$winner = RankingGame::model()->find(array(
-			'select' =>'* , max(score) AS score', 
+			'select' =>'*', 
 			'condition' => 'ranking_id=:rankingId',
-			'params' => array(':rankingId' => $ranking)));
-		
-		
+			'params' => array(':rankingId' => $ranking),
+			'order' => 'score desc',
+			'limit' => '1')
+		);
 		/* @var $user_winner Game */
 		$user_winner = Game::model()->findByPk($winner->game_id);
 		
 		$model = $this->loadModel($ranking);
-		$model->winner = $user_winner->publisher->user_id;
+		$model->winner = $user_winner->user_id;
 		$model->update('winner');
 		
 		$this->render('winner',array(
