@@ -108,6 +108,10 @@ class Ranking extends CActiveRecord
 	protected function beforeValidate() {
 		$this->start_date = strtotime($this->start_date);
 		$this->end_date = strtotime($this->end_date);
+		if($this->end_date < $this->start_date){
+			$this->addError('start_date', 'Ranking nie może zakończyć się wcześniej niż się zaczął :) ');
+			return false;
+		}
 		
 		return parent::beforeValidate();
 	}
