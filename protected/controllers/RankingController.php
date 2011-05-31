@@ -36,7 +36,6 @@ class RankingController extends Controller
 		$pages = new CPagination($count);
 		$pages->pageSize = 10;
 		$pages->applyLimit($criteria);
-		
 		$game = RankingGame::model()->findAll($criteria);
 		
 		$creator = User::model()->find(array(
@@ -45,10 +44,27 @@ class RankingController extends Controller
 			'params' => array(':userID' => $model->ranking_creator ),
 		));
 		
+		/* @var $user_winner Game */
+	
+		if(!empty($model->winner)){
+			$winner = RankingGame::model()->find(array(
+				'select' =>'* , max(score) AS score', 
+				'condition' => 'ranking_id=:rankingId',
+				'params' => array(':rankingId' => $model->ranking_id)));
+			
+			$user_winner = Game::model()->findByPk($winner->game_id);
+		
+			$model = $this->loadModel($model->ranking_id);
+			$model->winner = $user_winner->publisher->user_id;
+			$model->update('winner');
+		} else {
+			$user_winner = 0;
+		}
 		$this->render('view', array(
 			'model' => $model,
 			'creator' => $creator,
 			'game' => $game,
+			'game_winner' => $user_winner,
 			'pages' => $pages
 		));
 	}
@@ -89,8 +105,7 @@ class RankingController extends Controller
 		{
 			$model->attributes=$_POST['Ranking'];
 			$model->ranking_creator = Yii::app()->user->id;
-			//ZMINIC !!!!!!!!!!!
-			$model->winner = 1;
+			//$model->winner = 1;
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->ranking_id));
 		}
@@ -153,7 +168,6 @@ class RankingController extends Controller
 		$main_sql = "select * from game WHERE user_id=$user AND game_id NOT IN ($ranking_sql)";
 		
 		$game = Game::model()->findAllBySql($main_sql);
-		
 		if(isset($_POST['game']))
 		{
 			$game = $_POST['game'];

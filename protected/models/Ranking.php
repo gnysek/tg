@@ -43,7 +43,7 @@ class Ranking extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('ranking_creator, start_date, end_date, name, rules, winner', 'required'),
+			array('ranking_creator, start_date, end_date, name, rules', 'required'),
 			array('ranking_creator, start_date, end_date, winner', 'numerical', 'integerOnly'=>true),
 			array('name', 'length', 'max'=>256),
 			// The following rule is used by search().
@@ -108,6 +108,10 @@ class Ranking extends CActiveRecord
 	protected function beforeValidate() {
 		$this->start_date = strtotime($this->start_date);
 		$this->end_date = strtotime($this->end_date);
+		if($this->end_date < $this->start_date){
+			$this->addError('start_date', 'Ranking nie może zakończyć się wcześniej niż się zaczął :) ');
+			return false;
+		}
 		
 		return parent::beforeValidate();
 	}
