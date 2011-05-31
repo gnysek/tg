@@ -200,9 +200,17 @@ class RankingController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$model = Ranking::model()->findAll();
-		$this->render('index', 
-			array('model' => $model));
+		$criteria = new CDbCriteria();
+		$criteria->select = '*';
+		$count = Ranking::model()->count($criteria);    
+		$pages = new CPagination($count);
+		$pages->pageSize = 10;
+ 		$pages->applyLimit($criteria);
+		$model = Ranking::model()->findAll($criteria);
+		$this->render('index', array(
+		'model' => $model,
+		'pages' => $pages
+	)); 
 	}
 	
 	public static function userVote($entryId)
