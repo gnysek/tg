@@ -7,8 +7,17 @@ class GameController extends Controller
 
 	public function actionIndex()
 	{
-		$model = Game::model()->findAll();
-		$this->render('index',array('model'=>$model));
+		$criteria = new CDbCriteria();
+		$criteria->select = '*';
+
+		$count = Game::model()->count($criteria);
+		$pages = new CPagination($count);
+		$pages->pageSize = 25;
+		$pages->applyLimit($criteria);
+
+		$model = Game::model()->findAll($criteria);
+		
+		$this->render('index',array('model'=>$model, 'pages' => $pages));
 	}
 	
 	public function registerScript() {
