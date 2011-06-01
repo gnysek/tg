@@ -32,7 +32,7 @@ if(!empty(Yii::app()->user->id)){
 				
 				if(!empty($first)) {
 					$first = $first->with('game');
-					echo "Pierwsze miejsce zajmuje gra: " . CHtml::link($first->game->name, array('game/view', 'id' => $first->game->game_id)) . " <strong>({$first->score})</strong><br/>";
+					echo "1. " . CHtml::link($first->game->name, array('game/view', 'id' => $first->game->game_id)) . " <strong>({$first->score})</strong><br/>";
 				}
 			?>
 		</td>
