@@ -157,6 +157,14 @@ class Update
 			$model->value = 14;
 			$model->save();
 		}
+	if ($model->value == 14) {
+			$connection = Yii::app()->db;
+			$command = $connection->createCommand("ALTER TABLE `fcat` CHANGE `last_post_data` `last_post_data` TEXT NOT NULL;");
+			$command->execute();
+			$model->value = 15;
+			$model->save();
+		}	
+		 
 	}
 
 }
