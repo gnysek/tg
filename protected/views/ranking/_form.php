@@ -22,7 +22,7 @@
    			'options'=>array(
 		        'showAnim'=>'fold', // 'show' (the default), 'slideDown', 'fadeIn', 'fold'
 		        'showOn'=>'button', // 'focus', 'button', 'both'
-		        'buttonText'=>Yii::t('ui','Select form calendar'), 
+		        'buttonText'=>Yii::t('ui','Wybierz datę rozpoczęcia'), 
 		        'buttonImage'=>Yii::app()->request->baseUrl.'/css/calendar.gif', 
 		        'buttonImageOnly'=>true,
 		    ),
@@ -43,7 +43,7 @@
    			'options'=>array(
 		        'showAnim'=>'fold', // 'show' (the default), 'slideDown', 'fadeIn', 'fold'
 		        'showOn'=>'button', // 'focus', 'button', 'both'
-		        'buttonText'=>Yii::t('ui','Select form calendar'), 
+		        'buttonText'=>Yii::t('ui','Wybierz datę zakończenia'), 
 		        'buttonImage'=>Yii::app()->request->baseUrl.'/css/calendar.gif', 
 		        'buttonImageOnly'=>true,
 		    ),

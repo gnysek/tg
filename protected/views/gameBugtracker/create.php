@@ -1,10 +1,10 @@
 <?php
 $this->breadcrumbs=array(
-	'Game Bugtrackers'=>array('index'),
-	'Create',
+	'Game Bugtrackers Create',
 );
 
 $this->menu=array(
+	array('label' => 'Wróc', 'url' => array('game/view', 'id' => $_GET["gameId"]))
 );
 ?>
 

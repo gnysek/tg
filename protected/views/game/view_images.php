@@ -17,7 +17,8 @@
 			<?php
 			echo CHtml::link('Edytuj', array(
 				'/gameImage/update',
-				'id' => $image->image_id)
+				'id' => $image->image_id,
+				'gameId' => $image->game_id)
 			);
 
 			echo " | ";

@@ -6,6 +6,7 @@ $this->breadcrumbs=array(
 
 $this->menu = array(
 		array('label' => "Dodaj buga", 'url' => array('/gameBugtracker/create', 'gameId' => $model->game_id)),
+		array('label' => "Wróc", 'url' => array('/game/view', 'id' => $model->game_id)),
 	);
 
 if (count($bug)): ?>

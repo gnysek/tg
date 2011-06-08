@@ -54,10 +54,9 @@ $i = 1;
 			</td>
 			<?php if ($model->isPublisherAdmin()): ?>
 				<td>
-					<?php if ($model->user_id != $member->user->user_id): /* zalozyciela nie mozna skasowac! */ ?>
-						Usuń &bull;
-					<?php
-						endif;
+					<?php if ($model->user_id != $member->user->user_id) {
+						echo CHtml::link('Usuń', array('/member/RemoveMember/', 'id' => $member->member_id));
+					} ?> &bull; <?php
 						echo CHtml::link('Edytuj', array('/member/update/', 'id' => $member->member_id));
 					?>
 				</td>

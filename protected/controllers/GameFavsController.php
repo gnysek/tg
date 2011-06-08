@@ -13,6 +13,9 @@ class GameFavsController extends Controller
 
 	public function actionAdd($gameId)
 	{
+		if(Yii::app()->user->isGuest)
+			$this->redirect(array('site/login'));
+		
 		$model = new GameFavs();
 		$isFavs[] = array();
 		$isFavs[] = GameFavs::model()->findByAttributes(array('user_id' => Yii::app()->user->id, 'game_id' => $gameId), 'user_id=:userId', array(':userId' => Yii::app()->user->id));

@@ -44,6 +44,9 @@ class GameBugtrackerController extends Controller
 	 */
 	public function actionCreate($gameId)
 	{
+		if(Yii::app()->user->isGuest)
+			$this->redirect(array('site/login'));
+		
 		$model=new GameBugtracker;
 
 		// Uncomment the following line if AJAX validation is needed
@@ -59,7 +62,7 @@ class GameBugtrackerController extends Controller
 			$model->update_date = time();
 			$model->bug_reporter = Yii::app()->user->id;
 			if($model->validate() && $model->save())
-				$this->redirect(array('view','id'=>$model->bug_id));
+				$this->redirect(array('view','id'=>$model->game_id));
 		}
 
 		$this->render('create',array(
