@@ -3,9 +3,16 @@ $this->menu = array(
 	array('label' => 'Dodaj swoją grę', 'url' => array('add')),
 	array('label' => 'Twoje ulubione gry', 'url' => array('/gameFavs/view', 'id' => Yii::app()->user->id)),
 );
+$this->breadcrumbs = array(
+	'Wszystkie gry',
+);
 ?>
 
-<h1>Lista wszystkich gier</h1>
+<div class="prebar">
+	<div class="bar">
+		<div><b>Wszystkie gry</b></div>
+	</div>
+</div>	
 
 <?php /* @var $gra Game */ $i = 0; ?>
 <?php foreach ($model as $gra): ?>

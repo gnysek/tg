@@ -6,10 +6,14 @@ $this->breadcrumbs = array(
 	$fcat->name,
 );
 ?>
-<h1>Kategoria: <?php echo $fcat->forum->name . '/' . $fcat->name ?></h1>
+<div class="prebar">
+	<div class="bar">
+		<div><b><?php echo $fcat->forum->name . ' &raquo; ' . $fcat->name ?></b></div>
+	</div>
+</div>	
 
-<?php echo CHtml::link('+ Nowy temat', array('forum/posting', 'id' => $fcat->forum_id, 'topic' => 0)); ?>
-<div>&nbsp;</div>
+<?php echo CHtml::link('+ Nowy temat', array('forum/posting', 'id' => $fcat->forum_id, 'topic' => 0), array('class'=>'newtopic')); ?>
+<br/>
 <table class="tg-table">
 	<tr>
 		<th style="width: 70%">Temat</th>
@@ -32,3 +36,4 @@ $this->breadcrumbs = array(
 		?>
 	<?php endif; ?>
 </table>
+<?php echo CHtml::link('+ Nowy temat', array('forum/posting', 'id' => $fcat->forum_id, 'topic' => 0), array('class'=>'newtopic')); ?>

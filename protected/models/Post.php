@@ -105,14 +105,6 @@ class Post extends CActiveRecord
 				$this->user_id = Yii::app()->user->id;
 			}
 			$this->text = htmlspecialchars($this->text);
-			return true;
-		}
-		return false;
-	}
-
-	protected function afterSave()
-	{
-		if (parent::afterSave()) {
 			// zaktualizuj informacje w oryginalnym topicu
 			/* @var $model Topic */
 			$model = Topic::model()->findByPk($this->topic_id);
@@ -122,8 +114,21 @@ class Post extends CActiveRecord
 				'pid' => $this->post_id,
 				'time' => time(),
 			));
-			$model->posts++;
+			$model->posts = (string) ($model->posts + 1);
 			$model->save();
+			unset($model);
+			
+			/* @var $model Fcat */
+			$model = Fcat::model()->findByPk($this->topic->cat_id);
+			$model->posts_total = (string) ($model->posts_total + 1);
+			$model->last_post_data = serialize(array(
+				'user_id' => $this->user_id,
+				'user_name' => Yii::app()->user->name,
+				'pid' => $this->post_id,
+				'time' => time(),
+			));
+			$model->save();
+		
 			return true;
 		}
 		return false;

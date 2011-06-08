@@ -12,7 +12,7 @@
  * @property integer $topics_total
  * @property integer $posts_total
  * @property string $last_post_data
- * @property integer $visible
+ * @property integer $visible 
  *
  * The followings are the available model relations:
  * @property Forum $forum

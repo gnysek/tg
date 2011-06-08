@@ -47,13 +47,13 @@ class ForumController extends Controller
 				// zapisujemy temat normalnie
 				$model->save();
 				// jesli to nowy temat, zaktualizuj info
-				if (!empty($topic)) {
-					$modelTopic->topic_data = serialize(array(
+				if (empty($topic)) {
+					$modelTopic->last_post_data = $modelTopic->topic_data = serialize(array(
 						'user_id' => $model->user_id,
 						'user_name' => Yii::app()->user->name,
 						'pid' => $model->post_id,
 						'time' => time(),
-							));
+					));
 					$modelTopic->save();
 				}
 				$this->redirect(array('viewtopic', 'id' => $model->topic_id));
@@ -74,7 +74,7 @@ class ForumController extends Controller
 	public function actionViewforum($id)
 	{
 		$fcat = Fcat::model()->findByPk($id);
-		$total = Topic::model()->count("topic_id = $id");
+		$total = Topic::model()->count("cat_id = $id");
 		$criteria = new CDbCriteria();
 		$criteria->addCondition(array("cat_id = $id"));
 		$dataProvider = new CActiveDataProvider('Topic', array(

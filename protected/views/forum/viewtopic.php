@@ -7,10 +7,14 @@ $this->breadcrumbs = array(
 	$topic->title,
 );
 ?>
-<h1>Temat: <?php echo $topic->title ?></h1>
+<div class="prebar">
+	<div class="bar">
+		<div><b><?php echo $topic->title ?></b> &bull; <?php echo $topic->forum->name ?> &raquo; <?php echo $topic->cat->name ?></div>
+	</div>
+</div>	
 
-<?php echo CHtml::link('+ Nowa odpowiedź', array('forum/posting', 'id' => $topic->forum_id, 'topic' => $topic->topic_id)); ?>
-<div>&nbsp;</div>
+<?php echo CHtml::link('+ Nowa odpowiedź', array('forum/posting', 'id' => $topic->forum_id, 'topic' => $topic->topic_id), array('class'=>'newtopic')); ?>
+<br/>
 <table class="tg-table">
 	<tr>
 		<th style="width: 20%">Autor</th>
@@ -26,5 +30,4 @@ $this->breadcrumbs = array(
 	));
 	?>
 </table>
-<div>&nbsp;</div>
-<?php echo CHtml::link('+ Nowa odpowiedź', array('forum/posting', 'id' => $topic->forum_id, 'topic' => $topic->topic_id)); ?>
+<?php echo CHtml::link('+ Nowa odpowiedź', array('forum/posting', 'id' => $topic->forum_id, 'topic' => $topic->topic_id), array('class'=>'newtopic')); ?>

@@ -122,6 +122,13 @@ class Topic extends CActiveRecord
 				$this->posts = 1;
 				$this->topic_data = serialize(array());
 				$this->last_post_data = serialize(array());
+				
+				$model = Fcat::model()->findByPk($this->cat_id);
+				/* @var $model Fcat */
+				$model->topics_total = (string) ($model->topics_total + 1);
+				$model->save();
+				
+				return true;
 			}
 			return true;
 		}
