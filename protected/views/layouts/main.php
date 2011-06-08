@@ -31,13 +31,15 @@
 			<div id="header">
 				<div id="logo">
 					<div id="logotext">
+						
+						<?php echo CHtml::link('<img src="'.bu().'/images/logo.png" alt="logo"/>', array('/')); ?>
 						<?php echo CHtml::link(Yii::app()->name, array('/')); ?>
 					</div>
 					<div id="logomenu">
 						<?php
 						$this->widget('zii.widgets.CMenu', array(
 							'items' => array(
-								array('label' => 'Główna', 'url' => array('/site/index')),
+								array('label' => 'Główna', 'url' => array('/index')),
 								array('label' => 'Newsy', 'url' => array('/news')),
 								array('label' => 'Forum', 'url' => array('/forum')),
 								array('label' => 'Gry', 'url' => array('/game')),
@@ -79,7 +81,13 @@
 					<?php echo CHtml::link('O nas', array('/site/page', 'view' => 'about')); ?><br/>
 					<?php echo CHtml::link('Kontakt', array('/site/contact')); ?>
 				</div>
-				<div id="footer-c1">Copyright &copy; <?php echo date('Y'); ?></div>
+				<div id="footer-c1" style="width: 600px;">
+					Serwis tworzegry.pl jest miejscem, w którym amatorskie produkcje gier znajdują swój dom.
+					Chwal się swoimi produkcjami, wypuszczaj wersje testowe aby uzyskać feedback od użytkowników,
+					pytaj i dziel się wiedzą na forum.<br/>
+					<br/>
+					Copyright &copy; 2010 - <?php echo date('Y'); ?> by tworzegry.pl
+				</div>
 				<div class="clear"></div>
 			</div><!-- footer -->
 

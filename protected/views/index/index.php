@@ -23,6 +23,20 @@
 			</a>
 		<?php endforeach; ?>
 	</div>
+	
+	<div class="prebar">
+		<div class="bar">
+			<div>TworzęGry.pl</div>
+		</div>
+		
+		<ul>
+			<li>Prezentuj swoje gry</li>
+			<li>Pytaj i dziel się na forum</li>
+			<li>Testuj gry w fazie beta</li>
+			<li>Twórz rankingi i zwyciężaj</li>
+		</ul>
+	</div>
+	
 </div>
 
 

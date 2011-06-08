@@ -1,15 +1,24 @@
+body{
+	background-image: url('../images/bg.jpg');
+	background-position: center top;
+	background-attachment: fixed;
+}
 #logotext{
 	color: white;
 	font-family: 'Myriad Pro';
 	font-size: 200%;
 	float: left;
-	padding: 4px 20px;
+	padding: 4px 20px 4px 10px;
 	text-shadow: 2px 2px 0px #444;
+	margin-top: -7px;
 }
 #logotext a,#logotext a:visited{color: white; text-decoration: none;}
 #logotext a:hover{color: #ddd;}
 #logomenu {
 	float: left;
+}
+#logotext img {
+	vertical-align: -18px;
 }
 
 #logomenu ul
