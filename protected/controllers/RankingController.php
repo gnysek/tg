@@ -135,6 +135,8 @@ class RankingController extends Controller
 
 		if(isset($_POST['Ranking']))
 		{
+			$_POST['Ranking']['start_date'] = strtotime($_POST['Ranking']['start_date']);
+			$_POST['Ranking']['end_date'] = strtotime($_POST['Ranking']['end_date']);
 			$model->attributes=$_POST['Ranking'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->ranking_id));

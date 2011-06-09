@@ -16,8 +16,8 @@
 		<?php 
 		$this->widget('zii.widgets.jui.CJuiDatePicker', array(
 			'model' => $model,
-			'attribute' =>'start_date',
-    		#'name'=>'start_date',
+			'attribute' =>'startDateHuman',
+    		'name'=>'Ranking[start_date]',
     		'language'=>Yii::app()->language=='et' ? 'et' : null,
    			'options'=>array(
 		        'showAnim'=>'fold', // 'show' (the default), 'slideDown', 'fadeIn', 'fold'
@@ -37,8 +37,8 @@
 	<?php echo $form->labelEx($model,'end_date'); ?>
 		<?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
 			'model' => $model,
-			'attribute' =>'end_date',
-    		#'name'=>'start_date',
+			'attribute' =>'endDateHuman',
+    		'name'=>'Ranking[end_date]',
     		'language'=>Yii::app()->language=='et' ? 'et' : null,
    			'options'=>array(
 		        'showAnim'=>'fold', // 'show' (the default), 'slideDown', 'fadeIn', 'fold'

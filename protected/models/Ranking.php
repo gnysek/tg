@@ -106,13 +106,23 @@ class Ranking extends CActiveRecord
 	}
 	
 	protected function beforeValidate() {
-		$this->start_date = strtotime($this->start_date);
-		$this->end_date = strtotime($this->end_date);
+		if ($this->isNewRecord) {
+			$this->start_date = strtotime($this->start_date);
+			$this->end_date = strtotime($this->end_date);
+		}
 		if($this->end_date < $this->start_date){
 			$this->addError('start_date', 'Ranking nie może zakończyć się wcześniej niż się zaczął :) ');
 			return false;
 		}
 		
 		return parent::beforeValidate();
+	}
+	
+	public function getStartDateHuman() {
+		return date('m/d/Y', $this->start_date);
+	}
+	
+	public function getEndDateHuman() {
+		return date('m/d/Y', $this->end_date);
 	}
 }

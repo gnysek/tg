@@ -109,12 +109,22 @@ class GameBugtracker extends CActiveRecord
 		);
 	}
 	
+	public function getStatus() {
+		$x = $this->_getStatusOptions();
+		return $x[$this->status];
+	}
+	
 	public function _getType() {
 		return array(
 			self::TYPE_MIS => 'Błąd',
 			self::TYPE_NEW => 'Podpowiedź',
 			self::TYPE_PRO => 'Propozycja',
 		);
+	}
+	
+	public function getType() {
+		$x = $this->_getType();
+		return $x[$this->type];
 	}
 
 	/**
